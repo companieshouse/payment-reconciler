@@ -1,0 +1,7 @@
+# ------------------------------------------------------------------------------
+# Environment
+# ------------------------------------------------------------------------------
+log_level = "info"
+file_transfer_bucket = "<prod file bucket name>"
+release_bucket_name = "release.ch.gov.uk"
+stage = "prod"
