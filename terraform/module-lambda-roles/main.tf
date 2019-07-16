@@ -82,8 +82,8 @@ resource "aws_iam_role" "payment_reconciler_execution" {
 # ------------------------------------------------------------------------------
 # Role Policies
 # ------------------------------------------------------------------------------
-resource "aws_iam_role_policy" "file_transfer_api_execution" {
-  name   = "file-transfer-api-execution"
+resource "aws_iam_role_policy" "payment_reconciler_execution" {
+  name   = "payment_reconciler_execution"
   role   = "${aws_iam_role.payment_reconciler_execution.id}"
   policy = "${data.aws_iam_policy_document.payment_reconciler_execution.json}"
 }

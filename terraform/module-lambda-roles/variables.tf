@@ -1,3 +1,2 @@
 variable project_name {}
-
-variable file_transfer_bucket {}
+variable payment_reconciler_bucket{}

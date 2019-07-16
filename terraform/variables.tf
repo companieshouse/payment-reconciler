@@ -23,10 +23,12 @@ variable timeout_seconds {
 default = "6"
 }
 
-variable payment_reconciler_bucket {}
+
+
+variable payment_reconciler_bucket {
+  default = "payment_reconciler"
+}
 
 variable log_level {}
-
-variable stage {}
 
 variable release_version {}

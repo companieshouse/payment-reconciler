@@ -13,19 +13,11 @@ resource "aws_lambda_function" "payment_reconciler" {
 
   environment {
     variables = {
-      LOG_LEVEL = "${var.log_level}",
       S3_BUCKET_NAME = "${var.payment_reconciler_bucket}"
     }
   }
 }
 
-resource "aws_lambda_permission" "apigw" {
-  statement_id  = "AllowAPIGatewayInvoke"
-  action        = "lambda:InvokeFunction"
-  function_name = "${aws_lambda_function.payment_reconciler.arn}"
-  principal     = "apigateway.amazonaws.com"
-
-}
 
 output "invoke_arn" {
   value = "${aws_lambda_function.payment_reconciler.invoke_arn}"

@@ -2,7 +2,11 @@ provider "aws" {
   region = "${var.aws_region}"
 }
 terraform {
-  backend "s3" {}
+  backend "s3" {
+    key="payment-reconciler/dev/payment-reconciler.tfstate"
+    bucket="ch-development-terraform-state"
+    region="eu-west-1"
+  }
 }
 module "lambda" {
   source                        = "module-lambda"
@@ -21,5 +25,9 @@ module "lambda" {
 module "lambda-roles" {
   source                   = "module-lambda-roles"
   project_name             = "${var.project_name}"
-  file_transfer_bucket     = "${var.payment_reconciler_bucket}"
+  payment_reconciler_bucket     = "${var.payment_reconciler_bucket}"
 }
+
+# module "cloud-watch" {
+#   source                        = "module-cloud-watch"
+# }
