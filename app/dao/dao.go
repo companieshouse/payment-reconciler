@@ -5,5 +5,6 @@ import (
 )
 
 type DAO interface {
-	GetReconciliationData() (*models.ReconciliationData, error)
+	GetPaymentTransactionsData() (models.PaymentTransactionsData, error)
+	GetPaymentProductsData() (models.PaymentProductsData, error)
 }

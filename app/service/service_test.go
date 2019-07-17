@@ -6,95 +6,139 @@ import (
 
 	"github.com/companieshouse/payment-reconciler/app/config"
 	"github.com/companieshouse/payment-reconciler/app/dao"
-	"github.com/companieshouse/payment-reconciler/app/filetransfer"
 	"github.com/companieshouse/payment-reconciler/app/models"
 	"github.com/golang/mock/gomock"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func createMockService(mockDao *dao.MockDAO, cfg *config.Config, mockFileTransfer *filetransfer.MockFileTransfer) *Service {
+const expectedPaymentTransactionsFileNamePrefix string = "CHS_PaymentTransactions_"
+const expectedPaymentProductsFileNamePrefix string = "CHS_PaymentProducts_"
+const expectedCSVFileSuffix = ".csv"
+const reconciliationDate string = "2019-01-01"
 
-	return &Service{
-		DAO:          mockDao,
-		Config:       cfg,
-		FileTransfer: mockFileTransfer,
+func createMockService(cfg *config.Config, mockDao *dao.MockDAO) *ServiceImpl {
+
+	return &ServiceImpl{
+		Config: cfg,
+		DAO:    mockDao,
 	}
 }
 
-func TestUnitHandleRequest(t *testing.T) {
+func TestUnitGetPaymentTransactionsCSV(t *testing.T) {
 
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
 
-	cfg := &config.Config{}
-	reconciliation := &models.Reconciliation{}
+	cfg := config.Config{}
+	reconciliationMetaData := models.ReconciliationMetaData{
+		Date: reconciliationDate,
+	}
 
-	Convey("Success path", t, func() {
+	Convey("Subject: Success", t, func() {
 
 		mockDao := dao.NewMockDAO(mockCtrl)
-		mockFileTransfer := filetransfer.NewMockFileTransfer(mockCtrl)
 
-		mockService := createMockService(mockDao, cfg, mockFileTransfer)
+		svc := createMockService(&cfg, mockDao)
 
-		Convey("Given reconciliation data is retrieved successfully", func() {
+		Convey("Given payment transactions data is successfully fetched", func() {
 
-			mockDao.EXPECT().GetReconciliationData().Return(&models.ReconciliationData{}, nil).Times(1)
+			var paymentTransactions models.PaymentTransactionsData
+			mockDao.EXPECT().GetPaymentTransactionsData().Return(paymentTransactions, nil).Times(1)
 
-			Convey("And a CSV is uploaded successfully", func() {
+			Convey("Then a CSV is successfully constructed", func() {
 
-				mockFileTransfer.EXPECT().UploadCSV(gomock.Any()).Return(nil).Times(1)
+				paymentTransactionsCSV, err := svc.GetPaymentTransactionsCSV(&reconciliationMetaData)
+				So(paymentTransactionsCSV, ShouldNotBeNil)
+				So(paymentTransactionsCSV.Data, ShouldResemble, paymentTransactions)
+				So(paymentTransactionsCSV.FileName, ShouldEqual, expectedPaymentTransactionsFileNamePrefix+reconciliationMetaData.Date+expectedCSVFileSuffix)
 
-				Convey("Then the request is successful", func() {
+				Convey("And no errors are returned", func() {
 
-					err := mockService.HandleRequest(reconciliation)
 					So(err, ShouldBeNil)
 				})
 			})
 		})
 	})
 
-	Convey("Error fetching reconciliation data", t, func() {
+	Convey("Subject: Failure to retrieve payment transactions data", t, func() {
 
 		mockDao := dao.NewMockDAO(mockCtrl)
-		mockFileTransfer := filetransfer.NewMockFileTransfer(mockCtrl)
 
-		mockService := createMockService(mockDao, cfg, mockFileTransfer)
+		svc := createMockService(&cfg, mockDao)
 
-		Convey("Given there's an error when fetching reconciliation data", func() {
+		Convey("Given an error when fetching payment transactions data", func() {
 
-			mockDao.EXPECT().GetReconciliationData().Return(nil, errors.New("Error retrieving reconciliation data")).Times(1)
+			var paymentTransactions models.PaymentTransactionsData
+			mockDao.EXPECT().GetPaymentTransactionsData().Return(paymentTransactions, errors.New("Failure to fetch payment transactions data")).Times(1)
 
-			Convey("Then the call to upload a CSV is never made", func() {
+			Convey("Then no CSV is constructed", func() {
 
-				mockFileTransfer.EXPECT().UploadCSV(gomock.Any()).Times(0)
+				paymentTransactionsCSV, err := svc.GetPaymentTransactionsCSV(&reconciliationMetaData)
+				So(paymentTransactionsCSV.Data, ShouldBeNil)
 
-				Convey("And the request is unsuccessful", func() {
+				Convey("And errors are returned", func() {
 
-					err := mockService.HandleRequest(reconciliation)
 					So(err, ShouldNotBeNil)
 				})
 			})
 		})
 	})
+}
 
-	Convey("Error uploading CSV", t, func() {
+func TestUnitGetPaymentProductsCSV(t *testing.T) {
+
+	mockCtrl := gomock.NewController(t)
+	defer mockCtrl.Finish()
+
+	cfg := config.Config{}
+	reconciliationMetaData := models.ReconciliationMetaData{
+		Date: reconciliationDate,
+	}
+
+	Convey("Subject: Success", t, func() {
 
 		mockDao := dao.NewMockDAO(mockCtrl)
-		mockFileTransfer := filetransfer.NewMockFileTransfer(mockCtrl)
 
-		mockService := createMockService(mockDao, cfg, mockFileTransfer)
+		svc := createMockService(&cfg, mockDao)
 
-		Convey("Given reconciliation data is retrieved successfully", func() {
+		Convey("Given payment products data is successfully fetched", func() {
 
-			mockDao.EXPECT().GetReconciliationData().Return(&models.ReconciliationData{}, nil).Times(1)
+			var paymentProducts models.PaymentProductsData
+			mockDao.EXPECT().GetPaymentProductsData().Return(paymentProducts, nil).Times(1)
 
-			Convey("But there's an error when uploading a CSV", func() {
+			Convey("Then a CSV is successfully constructed", func() {
 
-				mockFileTransfer.EXPECT().UploadCSV(gomock.Any()).Return(errors.New("Error uploading CSV")).Times(1)
+				paymentProductsCSV, err := svc.GetPaymentProductsCSV(&reconciliationMetaData)
+				So(paymentProductsCSV, ShouldNotBeNil)
+				So(paymentProductsCSV.Data, ShouldResemble, paymentProducts)
+				So(paymentProductsCSV.FileName, ShouldEqual, expectedPaymentProductsFileNamePrefix+reconciliationMetaData.Date+expectedCSVFileSuffix)
 
-				Convey("Then the request is unsuccessful", func() {
+				Convey("And no errors are returned", func() {
 
-					err := mockService.HandleRequest(reconciliation)
+					So(err, ShouldBeNil)
+				})
+			})
+		})
+	})
+
+	Convey("Subject: Failure to retrieve payment products data", t, func() {
+
+		mockDao := dao.NewMockDAO(mockCtrl)
+
+		svc := createMockService(&cfg, mockDao)
+
+		Convey("Given an error when fetching payment products data", func() {
+
+			var paymentProducts models.PaymentProductsData
+			mockDao.EXPECT().GetPaymentProductsData().Return(paymentProducts, errors.New("Failure to fetch payment transactions data")).Times(1)
+
+			Convey("Then no CSV is constructed", func() {
+
+				paymentProductsCSV, err := svc.GetPaymentProductsCSV(&reconciliationMetaData)
+				So(paymentProductsCSV.Data, ShouldBeNil)
+
+				Convey("And errors are returned", func() {
+
 					So(err, ShouldNotBeNil)
 				})
 			})

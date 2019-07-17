@@ -9,6 +9,10 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+const paymentReconciliationDB string = "payment_reconciliation"
+const paymentTransactionsCollection = "payment_transactions"
+const paymentProductsCollection string = "payment_products"
+
 type Mongo struct {
 	Config *config.Config
 }
@@ -20,6 +24,7 @@ func New(cfg *config.Config) *Mongo {
 	}
 }
 
+// getMongoSession retrieves a fresh MongoDB session
 func getMongoSession(cfg *config.Config) (*mgo.Session, error) {
 
 	s, err := mgo.Dial(cfg.MongoDBURL)
@@ -30,26 +35,52 @@ func getMongoSession(cfg *config.Config) (*mgo.Session, error) {
 	return s.Copy(), nil
 }
 
-func (m *Mongo) GetReconciliationData() (*models.ReconciliationData, error) {
+// GetPaymentTransactionsData fetches payment transactions data
+func (m *Mongo) GetPaymentTransactionsData() (models.PaymentTransactionsData, error) {
+
+	var paymentTransactions []models.PaymentTransaction
+
+	var paymentTransactionsData models.PaymentTransactionsData
 
 	mongoSession, err := getMongoSession(m.Config)
 	if err != nil {
-		return nil, fmt.Errorf("Error connecting to MongoDB: %s", err)
+		return paymentTransactionsData, fmt.Errorf("Error connecting to MongoDB: %s", err)
 	}
 	defer mongoSession.Close()
 
-	payments := []models.PaymentResourceData{}
-
-	c := mongoSession.DB(m.Config.Database).C(m.Config.Collection)
-
-	err = c.Find(bson.M{}).All(&payments)
+	err = mongoSession.DB(paymentReconciliationDB).C(paymentTransactionsCollection).Find(bson.M{}).All(&paymentTransactions)
 	if err != nil {
-		return nil, fmt.Errorf("Error retrieving reconciliation data: %s", err)
+		return paymentTransactionsData, fmt.Errorf("Error retrieving payment transactions data: %s", err)
 	}
 
-	reconciliationData := &models.ReconciliationData{
-		Payments: payments,
+	paymentTransactionsData = models.PaymentTransactionsData{
+		PaymentTransactions: paymentTransactions,
 	}
 
-	return reconciliationData, err
+	return paymentTransactionsData, err
+}
+
+// GetPaymentProductsData fetches payment transactions data
+func (m *Mongo) GetPaymentProductsData() (models.PaymentProductsData, error) {
+
+	var paymentProducts []models.PaymentProduct
+
+	var paymentProductsData models.PaymentProductsData
+
+	mongoSession, err := getMongoSession(m.Config)
+	if err != nil {
+		return paymentProductsData, fmt.Errorf("Error connecting to MongoDB: %s", err)
+	}
+	defer mongoSession.Close()
+
+	err = mongoSession.DB(paymentReconciliationDB).C(paymentProductsCollection).Find(bson.M{}).All(&paymentProducts)
+	if err != nil {
+		return paymentProductsData, fmt.Errorf("Error retrieving payment products data: %s", err)
+	}
+
+	paymentProductsData = models.PaymentProductsData{
+		PaymentProducts: paymentProducts,
+	}
+
+	return paymentProductsData, err
 }

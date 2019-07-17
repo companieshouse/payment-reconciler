@@ -8,6 +8,7 @@ import (
 
 	"github.com/companieshouse/chs.go/log"
 	"github.com/companieshouse/payment-reconciler/app/config"
+	"github.com/companieshouse/payment-reconciler/app/models"
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
 )
@@ -37,9 +38,10 @@ func New(cfg *config.Config) *SFTP {
 	}
 }
 
-func (t *SFTP) UploadCSV(csvData [][]string) error {
+// UploadCSVFiles uploads an array of CSV's to an STFP server
+func (t *SFTP) UploadCSVFiles(csvs []models.CSV) error {
 
-	log.Info("Starting CSV upload. Initiating SSH connection to " + t.Config.SFTPServer)
+	log.Info("Starting upload of CSV's. Initiating SSH connection to " + t.Config.SFTPServer)
 
 	client, err := ssh.Dial("tcp", t.Config.SFTPServer+":22", t.SSHClientConfig)
 	if err != nil {
@@ -53,19 +55,22 @@ func (t *SFTP) UploadCSV(csvData [][]string) error {
 	}
 	defer sftpSession.Close()
 
-	log.Info("Connection established. Writing CSV")
+	log.Info("Connection established. Writing CSV's")
 
-	file, err := sftpSession.Create(filepath.Join(t.Config.SFTPFilePath, filepath.Base("test.csv")))
-	if err != nil {
-		return fmt.Errorf("Failed to create CSV: %s", err)
-	}
+	for i := 0; i < len(csvs); i++ {
 
-	defer file.Close()
+		file, err := sftpSession.Create(filepath.Join(t.Config.SFTPFilePath, filepath.Base(csvs[i].FileName)))
+		if err != nil {
+			return fmt.Errorf("Failed to create CSV: %s", err)
+		}
 
-	w := csv.NewWriter(file)
+		defer file.Close()
 
-	if err := w.WriteAll(csvData); err != nil {
-		return fmt.Errorf("Error writing CSV data: %s", err)
+		w := csv.NewWriter(file)
+
+		if err := w.WriteAll(csvs[i].Data.ToCSV()); err != nil {
+			return fmt.Errorf("Error writing CSV data: %s", err)
+		}
 	}
 
 	return nil
