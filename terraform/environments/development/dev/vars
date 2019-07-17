@@ -2,5 +2,6 @@
 # Environment
 # ------------------------------------------------------------------------------
 log_level = "debug"
-payment_reconciler_bucket = "s3av-test"
+payment_reconciler_bucket = "payment_reconciler"
 stage = "dev"
+env = "cookie"
