@@ -28,6 +28,9 @@ module "lambda-roles" {
   payment_reconciler_bucket     = "${var.payment_reconciler_bucket}"
 }
 
-# module "cloud-watch" {
-#   source                        = "module-cloud-watch"
-# }
+module "cloud-watch" {
+  source                        = "module-cloud-watch"
+  project_name                  = "${var.project_name}"
+  payment_reconciler_bucket     = "${var.payment_reconciler_bucket}"
+  arn                           = "${module.lambda.arn}"
+}

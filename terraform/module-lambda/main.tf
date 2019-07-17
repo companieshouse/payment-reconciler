@@ -18,7 +18,6 @@ resource "aws_lambda_function" "payment_reconciler" {
   }
 }
 
-
-output "invoke_arn" {
-  value = "${aws_lambda_function.payment_reconciler.invoke_arn}"
+output "arn" {
+  value = "${aws_lambda_function.payment_reconciler.arn}"
 }
