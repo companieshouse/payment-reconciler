@@ -33,4 +33,5 @@ module "cloud-watch" {
   project_name                  = "${var.project_name}"
   payment_reconciler_bucket     = "${var.payment_reconciler_bucket}"
   arn                           = "${module.lambda.arn}"
+  env                           = "${var.env}"
 }

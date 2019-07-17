@@ -24,7 +24,6 @@ default = "6"
 }
 
 variable config_bucket_name {
-  default = "config.ch.gov.uk"
 }
 variable env {}
 

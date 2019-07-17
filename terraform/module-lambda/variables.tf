@@ -4,7 +4,6 @@ variable release_bucket_name {}
 variable runtime {}
 variable timeout_seconds {}
 variable project_name {}
-variable log_level {}
 variable release_version {}
 variable execution_role {}
 variable payment_reconciler_bucket {}

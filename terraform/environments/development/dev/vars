@@ -5,3 +5,4 @@
 payment_reconciler_bucket = "payment_reconciler"
 stage = "dev"
 env = "cookie"
+config_bucket_name = "config.ch.gov.uk"

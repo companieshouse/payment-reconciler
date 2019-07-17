@@ -6,7 +6,7 @@ resource "aws_cloudwatch_event_rule" "payment_reconciler_daily" {
 
 resource "aws_cloudwatch_event_target" "call_payment_reconciler_lambda_everyday" {
     rule = "${aws_cloudwatch_event_rule.payment_reconciler_daily.name}"
-    target_id = "${var.project-name}-${var.env}"
+    target_id = "${var.project_name}-${var.env}"
     arn = "${var.arn}"
 }
 
