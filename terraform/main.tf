@@ -14,7 +14,6 @@ module "lambda" {
   runtime                       = "${var.runtime}"
   timeout_seconds               = "${var.timeout_seconds}" 
   payment_reconciler_bucket     = "${var.payment_reconciler_bucket}"
-  log_level                     = "${var.log_level}"
   release_version               = "${var.release_version}"
   release_bucket_name           = "${var.release_bucket_name}"
   execution_role                = "${module.lambda-roles.execution_role}"

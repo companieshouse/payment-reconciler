@@ -7,7 +7,7 @@ variable project_name {
 }
 
 variable handler {
-  default = "handler.handler"
+  default = "main"
 }
 
 variable memory_megabytes {
@@ -34,7 +34,5 @@ variable app_env_directory {
 variable payment_reconciler_bucket {
   default = "payment_reconciler"
 }
-
-variable log_level {}
 
 variable release_version {}
