@@ -9,10 +9,12 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// Mongo provides a MongoDB implementation of the DAO
 type Mongo struct {
 	Config *config.Config
 }
 
+// New returns a new Mongo struct using the provided config
 func New(cfg *config.Config) *Mongo {
 
 	return &Mongo{

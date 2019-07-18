@@ -8,12 +8,14 @@ import (
 	"github.com/companieshouse/payment-reconciler/app/service"
 )
 
+// Lambda provides AWS lambda execution functionality
 type Lambda struct {
 	Config       *config.Config
 	Service      service.Service
 	FileTransfer filetransfer.FileTransfer
 }
 
+// New returns a new Lambda using the provided configs
 func New(cfg *config.Config) *Lambda {
 
 	return &Lambda{

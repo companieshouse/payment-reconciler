@@ -13,11 +13,13 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
+// SFTP provides a concrete implementation of the FileTransfer interface, transferring files to an SFTP server
 type SFTP struct {
 	Config          *config.Config
 	SSHClientConfig *ssh.ClientConfig
 }
 
+// New returns a new SFTP struct using the provided config
 func New(cfg *config.Config) *SFTP {
 
 	sshCfg := &ssh.ClientConfig{

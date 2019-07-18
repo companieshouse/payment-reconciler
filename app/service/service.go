@@ -11,11 +11,13 @@ const transactionsFileNamePrefix = "CHS_PaymentTransactions_"
 const productsFileNamePrefix = "CHS_PaymentProducts_"
 const csvFileSuffix = ".csv"
 
+// Service provides functionality by which to fetch payment reconciliation CSV's
 type Service interface {
 	GetTransactionsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error)
 	GetProductsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error)
 }
 
+// ServiceImpl provides a concrete implementation of the Service interface
 type ServiceImpl struct {
 	Config *config.Config
 	DAO    dao.DAO

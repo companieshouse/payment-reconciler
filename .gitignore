@@ -3,3 +3,6 @@ payment-reconciler*
 
 # Goland files
 .idea/
+
+# Lint files
+lint.txt
