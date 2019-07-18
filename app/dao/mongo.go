@@ -9,10 +9,6 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-const paymentReconciliationDB string = "payment_reconciliation"
-const paymentTransactionsCollection = "payment_transactions"
-const paymentProductsCollection string = "payment_products"
-
 type Mongo struct {
 	Config *config.Config
 }
@@ -48,7 +44,7 @@ func (m *Mongo) GetPaymentTransactionsData() (models.PaymentTransactionsData, er
 	}
 	defer mongoSession.Close()
 
-	err = mongoSession.DB(paymentReconciliationDB).C(paymentTransactionsCollection).Find(bson.M{}).All(&paymentTransactions)
+	err = mongoSession.DB(m.Config.Database).C(m.Config.TransactionsCollection).Find(bson.M{}).All(&paymentTransactions)
 	if err != nil {
 		return paymentTransactionsData, fmt.Errorf("Error retrieving payment transactions data: %s", err)
 	}
@@ -73,7 +69,7 @@ func (m *Mongo) GetPaymentProductsData() (models.PaymentProductsData, error) {
 	}
 	defer mongoSession.Close()
 
-	err = mongoSession.DB(paymentReconciliationDB).C(paymentProductsCollection).Find(bson.M{}).All(&paymentProducts)
+	err = mongoSession.DB(m.Config.Database).C(m.Config.ProductsCollection).Find(bson.M{}).All(&paymentProducts)
 	if err != nil {
 		return paymentProductsData, fmt.Errorf("Error retrieving payment products data: %s", err)
 	}
