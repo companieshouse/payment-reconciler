@@ -45,16 +45,16 @@ func TestUnitGetTransactionsCSV(t *testing.T) {
 			var transactions models.TransactionsData
 			mockDao.EXPECT().GetTransactionsData().Return(transactions, nil).Times(1)
 
-			Convey("Then a CSV is successfully constructed", func() {
+			Convey("Then no errors are returned", func() {
 
 				transactionsCSV, err := svc.GetTransactionsCSV(&reconciliationMetaData)
-				So(transactionsCSV, ShouldNotBeNil)
-				So(transactionsCSV.Data, ShouldResemble, transactions)
-				So(transactionsCSV.FileName, ShouldEqual, expectedTransactionsFileNamePrefix+reconciliationMetaData.Date+expectedCSVFileSuffix)
+				So(err, ShouldBeNil)
 
-				Convey("And no errors are returned", func() {
+				Convey("And a CSV is successfully constructed", func() {
 
-					So(err, ShouldBeNil)
+					So(transactionsCSV, ShouldNotBeNil)
+					So(transactionsCSV.Data, ShouldResemble, transactions)
+					So(transactionsCSV.FileName, ShouldEqual, expectedTransactionsFileNamePrefix+reconciliationMetaData.Date+expectedCSVFileSuffix)
 				})
 			})
 		})
@@ -69,16 +69,16 @@ func TestUnitGetTransactionsCSV(t *testing.T) {
 		Convey("Given an error when fetching transactions data", func() {
 
 			var transactions models.TransactionsData
-			mockDao.EXPECT().GetTransactionsData().Return(transactions, errors.New("Failure to fetch transactions data")).Times(1)
+			mockDao.EXPECT().GetTransactionsData().Return(transactions, errors.New("failure to fetch transactions data")).Times(1)
 
-			Convey("Then no CSV is constructed", func() {
+			Convey("Then errors are returned", func() {
 
 				transactionsCSV, err := svc.GetTransactionsCSV(&reconciliationMetaData)
-				So(transactionsCSV.Data, ShouldBeNil)
+				So(err, ShouldNotBeNil)
 
-				Convey("And errors are returned", func() {
+				Convey("And no CSV is constructed", func() {
 
-					So(err, ShouldNotBeNil)
+					So(transactionsCSV.Data, ShouldBeNil)
 				})
 			})
 		})
@@ -106,16 +106,16 @@ func TestUnitGetProductsCSV(t *testing.T) {
 			var products models.ProductsData
 			mockDao.EXPECT().GetProductsData().Return(products, nil).Times(1)
 
-			Convey("Then a CSV is successfully constructed", func() {
+			Convey("Then no errors are returned", func() {
 
 				productsCSV, err := svc.GetProductsCSV(&reconciliationMetaData)
-				So(productsCSV, ShouldNotBeNil)
-				So(productsCSV.Data, ShouldResemble, products)
-				So(productsCSV.FileName, ShouldEqual, expectedProductsFileNamePrefix+reconciliationMetaData.Date+expectedCSVFileSuffix)
+				So(err, ShouldBeNil)
 
-				Convey("And no errors are returned", func() {
+				Convey("And a CSV is successfully constructed", func() {
 
-					So(err, ShouldBeNil)
+					So(productsCSV, ShouldNotBeNil)
+					So(productsCSV.Data, ShouldResemble, products)
+					So(productsCSV.FileName, ShouldEqual, expectedProductsFileNamePrefix+reconciliationMetaData.Date+expectedCSVFileSuffix)
 				})
 			})
 		})
@@ -130,16 +130,16 @@ func TestUnitGetProductsCSV(t *testing.T) {
 		Convey("Given an error when fetching products data", func() {
 
 			var products models.ProductsData
-			mockDao.EXPECT().GetProductsData().Return(products, errors.New("Failure to fetch transactions data")).Times(1)
+			mockDao.EXPECT().GetProductsData().Return(products, errors.New("failure to fetch transactions data")).Times(1)
 
-			Convey("Then no CSV is constructed", func() {
+			Convey("Then errors are returned", func() {
 
 				productsCSV, err := svc.GetProductsCSV(&reconciliationMetaData)
-				So(productsCSV.Data, ShouldBeNil)
+				So(err, ShouldNotBeNil)
 
-				Convey("And errors are returned", func() {
+				Convey("And no CSV is constructed", func() {
 
-					So(err, ShouldNotBeNil)
+					So(productsCSV.Data, ShouldBeNil)
 				})
 			})
 		})

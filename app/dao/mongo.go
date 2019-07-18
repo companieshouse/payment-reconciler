@@ -40,13 +40,13 @@ func (m *Mongo) GetTransactionsData() (models.TransactionsData, error) {
 
 	mongoSession, err := getMongoSession(m.Config)
 	if err != nil {
-		return transactionsData, fmt.Errorf("Error connecting to MongoDB: %s", err)
+		return transactionsData, fmt.Errorf("error connecting to MongoDB: %s", err)
 	}
 	defer mongoSession.Close()
 
 	err = mongoSession.DB(m.Config.Database).C(m.Config.TransactionsCollection).Find(bson.M{}).All(&transactions)
 	if err != nil {
-		return transactionsData, fmt.Errorf("Error retrieving transactions data: %s", err)
+		return transactionsData, fmt.Errorf("error retrieving transactions data: %s", err)
 	}
 
 	transactionsData = models.TransactionsData{
@@ -65,13 +65,13 @@ func (m *Mongo) GetProductsData() (models.ProductsData, error) {
 
 	mongoSession, err := getMongoSession(m.Config)
 	if err != nil {
-		return productsData, fmt.Errorf("Error connecting to MongoDB: %s", err)
+		return productsData, fmt.Errorf("error connecting to MongoDB: %s", err)
 	}
 	defer mongoSession.Close()
 
 	err = mongoSession.DB(m.Config.Database).C(m.Config.ProductsCollection).Find(bson.M{}).All(&products)
 	if err != nil {
-		return productsData, fmt.Errorf("Error retrieving products data: %s", err)
+		return productsData, fmt.Errorf("error retrieving products data: %s", err)
 	}
 
 	productsData = models.ProductsData{

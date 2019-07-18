@@ -45,13 +45,13 @@ func (t *SFTP) UploadCSVFiles(csvs []models.CSV) error {
 
 	client, err := ssh.Dial("tcp", t.Config.SFTPServer+":22", t.SSHClientConfig)
 	if err != nil {
-		return fmt.Errorf("Failed to establish connection: %s", err)
+		return fmt.Errorf("failed to establish connection: %s", err)
 	}
 	defer client.Close()
 
 	sftpSession, err := sftp.NewClient(client)
 	if err != nil {
-		return fmt.Errorf("Error creating SFTP session: %s", err)
+		return fmt.Errorf("error creating SFTP session: %s", err)
 	}
 	defer sftpSession.Close()
 
@@ -61,16 +61,16 @@ func (t *SFTP) UploadCSVFiles(csvs []models.CSV) error {
 
 		file, err := sftpSession.Create(filepath.Join(t.Config.SFTPFilePath, filepath.Base(csvs[i].FileName)))
 		if err != nil {
-			return fmt.Errorf("Failed to create CSV: %s", err)
+			return fmt.Errorf("failed to create CSV: %s", err)
 		}
-
-		defer file.Close()
 
 		w := csv.NewWriter(file)
 
 		if err := w.WriteAll(csvs[i].Data.ToCSV()); err != nil {
-			return fmt.Errorf("Error writing CSV data: %s", err)
+			return fmt.Errorf("error writing CSV data: %s", err)
 		}
+
+		file.Close()
 	}
 
 	return nil

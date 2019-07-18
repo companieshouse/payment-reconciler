@@ -7,8 +7,8 @@ import (
 	"github.com/companieshouse/payment-reconciler/app/models"
 )
 
-const transactionsFileNamePrefix string = "CHS_PaymentTransactions_"
-const productsFileNamePrefix string = "CHS_PaymentProducts_"
+const transactionsFileNamePrefix = "CHS_PaymentTransactions_"
+const productsFileNamePrefix = "CHS_PaymentProducts_"
 const csvFileSuffix = ".csv"
 
 type Service interface {
@@ -70,7 +70,7 @@ func (s *ServiceImpl) GetProductsCSV(reconciliationMetaData *models.Reconciliati
 	return csv, nil
 }
 
-// constructCSV marshalls CSVable data into a CSV, accompanied by a file name
+// constructCSV marshals CSVable data into a CSV, accompanied by a file name
 func constructCSV(data models.CSVable, fileNamePrefix string, reconciliationMetaData *models.ReconciliationMetaData) models.CSV {
 
 	return models.CSV{
