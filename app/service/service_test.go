@@ -11,8 +11,8 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-const expectedPaymentTransactionsFileNamePrefix string = "CHS_PaymentTransactions_"
-const expectedPaymentProductsFileNamePrefix string = "CHS_PaymentProducts_"
+const expectedTransactionsFileNamePrefix string = "CHS_PaymentTransactions_"
+const expectedProductsFileNamePrefix string = "CHS_PaymentProducts_"
 const expectedCSVFileSuffix = ".csv"
 const reconciliationDate string = "2019-01-01"
 
@@ -24,7 +24,7 @@ func createMockService(cfg *config.Config, mockDao *dao.MockDAO) *ServiceImpl {
 	}
 }
 
-func TestUnitGetPaymentTransactionsCSV(t *testing.T) {
+func TestUnitGetTransactionsCSV(t *testing.T) {
 
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
@@ -40,17 +40,17 @@ func TestUnitGetPaymentTransactionsCSV(t *testing.T) {
 
 		svc := createMockService(&cfg, mockDao)
 
-		Convey("Given payment transactions data is successfully fetched", func() {
+		Convey("Given transactions data is successfully fetched", func() {
 
-			var paymentTransactions models.PaymentTransactionsData
-			mockDao.EXPECT().GetPaymentTransactionsData().Return(paymentTransactions, nil).Times(1)
+			var transactions models.TransactionsData
+			mockDao.EXPECT().GetTransactionsData().Return(transactions, nil).Times(1)
 
 			Convey("Then a CSV is successfully constructed", func() {
 
-				paymentTransactionsCSV, err := svc.GetPaymentTransactionsCSV(&reconciliationMetaData)
-				So(paymentTransactionsCSV, ShouldNotBeNil)
-				So(paymentTransactionsCSV.Data, ShouldResemble, paymentTransactions)
-				So(paymentTransactionsCSV.FileName, ShouldEqual, expectedPaymentTransactionsFileNamePrefix+reconciliationMetaData.Date+expectedCSVFileSuffix)
+				transactionsCSV, err := svc.GetTransactionsCSV(&reconciliationMetaData)
+				So(transactionsCSV, ShouldNotBeNil)
+				So(transactionsCSV.Data, ShouldResemble, transactions)
+				So(transactionsCSV.FileName, ShouldEqual, expectedTransactionsFileNamePrefix+reconciliationMetaData.Date+expectedCSVFileSuffix)
 
 				Convey("And no errors are returned", func() {
 
@@ -60,21 +60,21 @@ func TestUnitGetPaymentTransactionsCSV(t *testing.T) {
 		})
 	})
 
-	Convey("Subject: Failure to retrieve payment transactions data", t, func() {
+	Convey("Subject: Failure to retrieve transactions data", t, func() {
 
 		mockDao := dao.NewMockDAO(mockCtrl)
 
 		svc := createMockService(&cfg, mockDao)
 
-		Convey("Given an error when fetching payment transactions data", func() {
+		Convey("Given an error when fetching transactions data", func() {
 
-			var paymentTransactions models.PaymentTransactionsData
-			mockDao.EXPECT().GetPaymentTransactionsData().Return(paymentTransactions, errors.New("Failure to fetch payment transactions data")).Times(1)
+			var transactions models.TransactionsData
+			mockDao.EXPECT().GetTransactionsData().Return(transactions, errors.New("Failure to fetch transactions data")).Times(1)
 
 			Convey("Then no CSV is constructed", func() {
 
-				paymentTransactionsCSV, err := svc.GetPaymentTransactionsCSV(&reconciliationMetaData)
-				So(paymentTransactionsCSV.Data, ShouldBeNil)
+				transactionsCSV, err := svc.GetTransactionsCSV(&reconciliationMetaData)
+				So(transactionsCSV.Data, ShouldBeNil)
 
 				Convey("And errors are returned", func() {
 
@@ -85,7 +85,7 @@ func TestUnitGetPaymentTransactionsCSV(t *testing.T) {
 	})
 }
 
-func TestUnitGetPaymentProductsCSV(t *testing.T) {
+func TestUnitGetProductsCSV(t *testing.T) {
 
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
@@ -101,17 +101,17 @@ func TestUnitGetPaymentProductsCSV(t *testing.T) {
 
 		svc := createMockService(&cfg, mockDao)
 
-		Convey("Given payment products data is successfully fetched", func() {
+		Convey("Given products data is successfully fetched", func() {
 
-			var paymentProducts models.PaymentProductsData
-			mockDao.EXPECT().GetPaymentProductsData().Return(paymentProducts, nil).Times(1)
+			var products models.ProductsData
+			mockDao.EXPECT().GetProductsData().Return(products, nil).Times(1)
 
 			Convey("Then a CSV is successfully constructed", func() {
 
-				paymentProductsCSV, err := svc.GetPaymentProductsCSV(&reconciliationMetaData)
-				So(paymentProductsCSV, ShouldNotBeNil)
-				So(paymentProductsCSV.Data, ShouldResemble, paymentProducts)
-				So(paymentProductsCSV.FileName, ShouldEqual, expectedPaymentProductsFileNamePrefix+reconciliationMetaData.Date+expectedCSVFileSuffix)
+				productsCSV, err := svc.GetProductsCSV(&reconciliationMetaData)
+				So(productsCSV, ShouldNotBeNil)
+				So(productsCSV.Data, ShouldResemble, products)
+				So(productsCSV.FileName, ShouldEqual, expectedProductsFileNamePrefix+reconciliationMetaData.Date+expectedCSVFileSuffix)
 
 				Convey("And no errors are returned", func() {
 
@@ -121,21 +121,21 @@ func TestUnitGetPaymentProductsCSV(t *testing.T) {
 		})
 	})
 
-	Convey("Subject: Failure to retrieve payment products data", t, func() {
+	Convey("Subject: Failure to retrieve products data", t, func() {
 
 		mockDao := dao.NewMockDAO(mockCtrl)
 
 		svc := createMockService(&cfg, mockDao)
 
-		Convey("Given an error when fetching payment products data", func() {
+		Convey("Given an error when fetching products data", func() {
 
-			var paymentProducts models.PaymentProductsData
-			mockDao.EXPECT().GetPaymentProductsData().Return(paymentProducts, errors.New("Failure to fetch payment transactions data")).Times(1)
+			var products models.ProductsData
+			mockDao.EXPECT().GetProductsData().Return(products, errors.New("Failure to fetch transactions data")).Times(1)
 
 			Convey("Then no CSV is constructed", func() {
 
-				paymentProductsCSV, err := svc.GetPaymentProductsCSV(&reconciliationMetaData)
-				So(paymentProductsCSV.Data, ShouldBeNil)
+				productsCSV, err := svc.GetProductsCSV(&reconciliationMetaData)
+				So(productsCSV.Data, ShouldBeNil)
 
 				Convey("And errors are returned", func() {
 

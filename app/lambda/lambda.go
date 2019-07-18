@@ -26,27 +26,27 @@ func New(cfg *config.Config) *Lambda {
 // Execute handles lambda execution
 func (lambda *Lambda) Execute(reconciliationMetaData *models.ReconciliationMetaData) error {
 
-	log.Info("Payment reconciliation lambda executing. Creating payment transactions CSV.")
+	log.Info("Payment reconciliation lambda executing. Creating transactions CSV.")
 
-	paymentTransactionsCSV, err := lambda.Service.GetPaymentTransactionsCSV(reconciliationMetaData)
+	transactionsCSV, err := lambda.Service.GetTransactionsCSV(reconciliationMetaData)
 	if err != nil {
 		log.Error(err)
 		return err
 	}
 
-	log.Info("Payment transactions CSV constructed. Creating payment products CSV.")
-	log.Trace("Payment transactions CSV", log.Data{"payment_transactions_csv": paymentTransactionsCSV})
+	log.Info("Transactions CSV constructed. Creating products CSV.")
+	log.Trace("Transactions CSV", log.Data{"transactions_csv": transactionsCSV})
 
-	paymentProductsCSV, err := lambda.Service.GetPaymentProductsCSV(reconciliationMetaData)
+	productsCSV, err := lambda.Service.GetProductsCSV(reconciliationMetaData)
 	if err != nil {
 		log.Error(err)
 		return err
 	}
 
-	log.Info("Payment products CSV constructed. Preparing to upload CSV's.")
-	log.Trace("Payment products CSV", log.Data{"payment_products_csv": paymentProductsCSV})
+	log.Info("Products CSV constructed. Preparing to upload CSV's.")
+	log.Trace("Products CSV", log.Data{"products_csv": productsCSV})
 
-	err = lambda.FileTransfer.UploadCSVFiles([]models.CSV{paymentTransactionsCSV, paymentProductsCSV})
+	err = lambda.FileTransfer.UploadCSVFiles([]models.CSV{transactionsCSV, productsCSV})
 	if err != nil {
 		log.Error(err)
 		return err

@@ -2,11 +2,11 @@ package models
 
 import "reflect"
 
-type PaymentProductsData struct {
-	PaymentProducts []PaymentProduct
+type ProductsData struct {
+	Products []Product
 }
 
-type PaymentProduct struct {
+type Product struct {
 	PaymentRef    string `bson:"payment_ref"`
 	ProductCode   string `bson:"product_code"`
 	CompanyNumber string `bson:"company_number"`
@@ -14,11 +14,11 @@ type PaymentProduct struct {
 	MadeUpDate    string `bson:"made_up_date"`
 }
 
-type PaymentTransactionsData struct {
-	PaymentTransactions []PaymentTransaction
+type TransactionsData struct {
+	Transactions []Transaction
 }
 
-type PaymentTransaction struct {
+type Transaction struct {
 	TransactionID     string `bson:"transaction_id"`
 	TransactionDate   string `bson:"transaction_date"`
 	Email             string `bson:"email"`
@@ -33,26 +33,26 @@ type PaymentTransaction struct {
 	DisputeDetails    string `bson:"dispute_details"`
 }
 
-func (paymentTransactions PaymentTransactionsData) ToCSV() [][]string {
+func (transactions TransactionsData) ToCSV() [][]string {
 
-	csv := make([][]string, len(paymentTransactions.PaymentTransactions)+1)
+	csv := make([][]string, len(transactions.Transactions)+1)
 
-	for i := 0; i < len(paymentTransactions.PaymentTransactions); i++ {
+	for i := 0; i < len(transactions.Transactions); i++ {
 		if i == 0 {
-			csv[i] = getHeaders(paymentTransactions.PaymentTransactions[i])
+			csv[i] = getHeaders(transactions.Transactions[i])
 		}
-		csv[i+1] = getSlice(paymentTransactions.PaymentTransactions[i])
+		csv[i+1] = getSlice(transactions.Transactions[i])
 	}
 
 	return csv
 }
 
-func (paymentProducts PaymentProductsData) ToCSV() [][]string {
+func (products ProductsData) ToCSV() [][]string {
 
-	csv := make([][]string, len(paymentProducts.PaymentProducts))
+	csv := make([][]string, len(products.Products))
 
-	for i := 0; i < len(paymentProducts.PaymentProducts); i++ {
-		csv[i] = getSlice(paymentProducts.PaymentProducts[i])
+	for i := 0; i < len(products.Products); i++ {
+		csv[i] = getSlice(products.Products[i])
 	}
 
 	return csv

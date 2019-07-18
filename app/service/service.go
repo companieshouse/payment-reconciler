@@ -7,13 +7,13 @@ import (
 	"github.com/companieshouse/payment-reconciler/app/models"
 )
 
-const paymentTransactionsFileNamePrefix string = "CHS_PaymentTransactions_"
-const paymentProductsFileNamePrefix string = "CHS_PaymentProducts_"
+const transactionsFileNamePrefix string = "CHS_PaymentTransactions_"
+const productsFileNamePrefix string = "CHS_PaymentProducts_"
 const csvFileSuffix = ".csv"
 
 type Service interface {
-	GetPaymentTransactionsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error)
-	GetPaymentProductsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error)
+	GetTransactionsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error)
+	GetProductsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error)
 }
 
 type ServiceImpl struct {
@@ -30,42 +30,42 @@ func New(cfg *config.Config) *ServiceImpl {
 	}
 }
 
-// GetPaymentTransactionsCSV retrieves payment transactions data and constructs a CSV
-func (s *ServiceImpl) GetPaymentTransactionsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error) {
+// GetTransactionsCSV retrieves transactions data and constructs a CSV
+func (s *ServiceImpl) GetTransactionsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error) {
 
 	var csv models.CSV
 
-	log.Info("Fetching payment transactions data.")
+	log.Info("Fetching transactions data.")
 
-	paymentTransactions, err := s.DAO.GetPaymentTransactionsData()
+	transactions, err := s.DAO.GetTransactionsData()
 	if err != nil {
 		return csv, err
 	}
 
-	log.Info("Successfully retrieved payment transactions data.")
-	log.Trace("Payment transactions data", log.Data{"payment_transactions_data": paymentTransactions})
+	log.Info("Successfully retrieved transactions data.")
+	log.Trace("Transactions data", log.Data{"transactions_data": transactions})
 
-	csv = constructCSV(paymentTransactions, paymentTransactionsFileNamePrefix, reconciliationMetaData)
+	csv = constructCSV(transactions, transactionsFileNamePrefix, reconciliationMetaData)
 
 	return csv, nil
 }
 
-// GetPaymentProductsCSV retrieves payment products data and constructs a CSV
-func (s *ServiceImpl) GetPaymentProductsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error) {
+// GetProductsCSV retrieves products data and constructs a CSV
+func (s *ServiceImpl) GetProductsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error) {
 
 	var csv models.CSV
 
-	log.Info("Fetching payment products data.")
+	log.Info("Fetching products data.")
 
-	paymentProducts, err := s.DAO.GetPaymentProductsData()
+	products, err := s.DAO.GetProductsData()
 	if err != nil {
 		return csv, err
 	}
 
-	log.Info("Successfully retrieved payment products data.")
-	log.Trace("Payment products data", log.Data{"payment_products_data": paymentProducts})
+	log.Info("Successfully retrieved products data.")
+	log.Trace("Products data", log.Data{"products_data": products})
 
-	csv = constructCSV(paymentProducts, paymentProductsFileNamePrefix, reconciliationMetaData)
+	csv = constructCSV(products, productsFileNamePrefix, reconciliationMetaData)
 
 	return csv, nil
 }

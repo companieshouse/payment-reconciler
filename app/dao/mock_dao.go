@@ -32,32 +32,32 @@ func (m *MockDAO) EXPECT() *MockDAOMockRecorder {
 	return m.recorder
 }
 
-// GetPaymentProductsData mocks base method
-func (m *MockDAO) GetPaymentProductsData() (models.PaymentProductsData, error) {
+// GetProductsData mocks base method
+func (m *MockDAO) GetProductsData() (models.ProductsData, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetPaymentProductsData")
-	ret0, _ := ret[0].(models.PaymentProductsData)
+	ret := m.ctrl.Call(m, "GetProductsData")
+	ret0, _ := ret[0].(models.ProductsData)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetPaymentProductsData indicates an expected call of GetPaymentProductsData
-func (mr *MockDAOMockRecorder) GetPaymentProductsData() *gomock.Call {
+// GetProductsData indicates an expected call of GetProductsData
+func (mr *MockDAOMockRecorder) GetProductsData() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetPaymentProductsData", reflect.TypeOf((*MockDAO)(nil).GetPaymentProductsData))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetProductsData", reflect.TypeOf((*MockDAO)(nil).GetProductsData))
 }
 
-// GetPaymentTransactionsData mocks base method
-func (m *MockDAO) GetPaymentTransactionsData() (models.PaymentTransactionsData, error) {
+// GetTransactionsData mocks base method
+func (m *MockDAO) GetTransactionsData() (models.TransactionsData, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetPaymentTransactionsData")
-	ret0, _ := ret[0].(models.PaymentTransactionsData)
+	ret := m.ctrl.Call(m, "GetTransactionsData")
+	ret0, _ := ret[0].(models.TransactionsData)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetPaymentTransactionsData indicates an expected call of GetPaymentTransactionsData
-func (mr *MockDAOMockRecorder) GetPaymentTransactionsData() *gomock.Call {
+// GetTransactionsData indicates an expected call of GetTransactionsData
+func (mr *MockDAOMockRecorder) GetTransactionsData() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetPaymentTransactionsData", reflect.TypeOf((*MockDAO)(nil).GetPaymentTransactionsData))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTransactionsData", reflect.TypeOf((*MockDAO)(nil).GetTransactionsData))
 }

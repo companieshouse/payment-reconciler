@@ -31,52 +31,52 @@ func getMongoSession(cfg *config.Config) (*mgo.Session, error) {
 	return s.Copy(), nil
 }
 
-// GetPaymentTransactionsData fetches payment transactions data
-func (m *Mongo) GetPaymentTransactionsData() (models.PaymentTransactionsData, error) {
+// GetTransactionsData fetches transactions data
+func (m *Mongo) GetTransactionsData() (models.TransactionsData, error) {
 
-	var paymentTransactions []models.PaymentTransaction
+	var transactions []models.Transaction
 
-	var paymentTransactionsData models.PaymentTransactionsData
+	var transactionsData models.TransactionsData
 
 	mongoSession, err := getMongoSession(m.Config)
 	if err != nil {
-		return paymentTransactionsData, fmt.Errorf("Error connecting to MongoDB: %s", err)
+		return transactionsData, fmt.Errorf("Error connecting to MongoDB: %s", err)
 	}
 	defer mongoSession.Close()
 
-	err = mongoSession.DB(m.Config.Database).C(m.Config.TransactionsCollection).Find(bson.M{}).All(&paymentTransactions)
+	err = mongoSession.DB(m.Config.Database).C(m.Config.TransactionsCollection).Find(bson.M{}).All(&transactions)
 	if err != nil {
-		return paymentTransactionsData, fmt.Errorf("Error retrieving payment transactions data: %s", err)
+		return transactionsData, fmt.Errorf("Error retrieving transactions data: %s", err)
 	}
 
-	paymentTransactionsData = models.PaymentTransactionsData{
-		PaymentTransactions: paymentTransactions,
+	transactionsData = models.TransactionsData{
+		Transactions: transactions,
 	}
 
-	return paymentTransactionsData, err
+	return transactionsData, err
 }
 
-// GetPaymentProductsData fetches payment transactions data
-func (m *Mongo) GetPaymentProductsData() (models.PaymentProductsData, error) {
+// GetProductsData fetches products data
+func (m *Mongo) GetProductsData() (models.ProductsData, error) {
 
-	var paymentProducts []models.PaymentProduct
+	var products []models.Product
 
-	var paymentProductsData models.PaymentProductsData
+	var productsData models.ProductsData
 
 	mongoSession, err := getMongoSession(m.Config)
 	if err != nil {
-		return paymentProductsData, fmt.Errorf("Error connecting to MongoDB: %s", err)
+		return productsData, fmt.Errorf("Error connecting to MongoDB: %s", err)
 	}
 	defer mongoSession.Close()
 
-	err = mongoSession.DB(m.Config.Database).C(m.Config.ProductsCollection).Find(bson.M{}).All(&paymentProducts)
+	err = mongoSession.DB(m.Config.Database).C(m.Config.ProductsCollection).Find(bson.M{}).All(&products)
 	if err != nil {
-		return paymentProductsData, fmt.Errorf("Error retrieving payment products data: %s", err)
+		return productsData, fmt.Errorf("Error retrieving products data: %s", err)
 	}
 
-	paymentProductsData = models.PaymentProductsData{
-		PaymentProducts: paymentProducts,
+	productsData = models.ProductsData{
+		Products: products,
 	}
 
-	return paymentProductsData, err
+	return productsData, err
 }
