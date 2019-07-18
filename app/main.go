@@ -15,7 +15,7 @@ func main() {
 
 	cfg, err := config.Get()
 	if err != nil {
-		log.Error(fmt.Errorf("Error configuring service: %s. Exiting.", err), nil)
+		log.Error(fmt.Errorf("error configuring service: %s. - exiting", err), nil)
 		return
 	}
 
