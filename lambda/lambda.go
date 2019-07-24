@@ -2,10 +2,10 @@ package lambda
 
 import (
 	"github.com/companieshouse/chs.go/log"
-	"github.com/companieshouse/payment-reconciler/app/config"
-	"github.com/companieshouse/payment-reconciler/app/filetransfer"
-	"github.com/companieshouse/payment-reconciler/app/models"
-	"github.com/companieshouse/payment-reconciler/app/service"
+	"github.com/companieshouse/payment-reconciler/config"
+	"github.com/companieshouse/payment-reconciler/filetransfer"
+	"github.com/companieshouse/payment-reconciler/models"
+	"github.com/companieshouse/payment-reconciler/service"
 )
 
 // Lambda provides AWS lambda execution functionality

@@ -26,7 +26,7 @@ test-deps: deps
 
 .PHONY: test
 test: test-deps
-	go test -t ./...
+	go test ./...
 
 .PHONY: clean
 clean:

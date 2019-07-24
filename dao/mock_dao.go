@@ -3,10 +3,10 @@
 package dao
 
 import (
-	reflect "reflect"
+	"reflect"
 
-	models "github.com/companieshouse/payment-reconciler/app/models"
-	gomock "github.com/golang/mock/gomock"
+	"github.com/companieshouse/payment-reconciler/models"
+	"github.com/golang/mock/gomock"
 )
 
 // MockDAO is a mock of DAO interface

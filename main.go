@@ -5,8 +5,8 @@ import (
 
 	. "github.com/aws/aws-lambda-go/lambda"
 	"github.com/companieshouse/chs.go/log"
-	"github.com/companieshouse/payment-reconciler/app/config"
-	"github.com/companieshouse/payment-reconciler/app/lambda"
+	"github.com/companieshouse/payment-reconciler/config"
+	"github.com/companieshouse/payment-reconciler/lambda"
 )
 
 func main() {

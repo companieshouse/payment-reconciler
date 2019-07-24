@@ -3,8 +3,8 @@ package dao
 import (
 	"fmt"
 
-	"github.com/companieshouse/payment-reconciler/app/config"
-	"github.com/companieshouse/payment-reconciler/app/models"
+	"github.com/companieshouse/payment-reconciler/config"
+	"github.com/companieshouse/payment-reconciler/models"
 	"github.com/globalsign/mgo"
 	"gopkg.in/mgo.v2/bson"
 )

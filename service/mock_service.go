@@ -3,9 +3,9 @@
 package service
 
 import (
-	models "github.com/companieshouse/payment-reconciler/app/models"
-	gomock "github.com/golang/mock/gomock"
-	reflect "reflect"
+	"github.com/companieshouse/payment-reconciler/models"
+	"github.com/golang/mock/gomock"
+	"reflect"
 )
 
 // MockService is a mock of Service interface

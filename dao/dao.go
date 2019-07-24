@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"github.com/companieshouse/payment-reconciler/app/models"
+	"github.com/companieshouse/payment-reconciler/models"
 )
 
 // DAO provides access to the database

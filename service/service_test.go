@@ -4,9 +4,9 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/companieshouse/payment-reconciler/app/config"
-	"github.com/companieshouse/payment-reconciler/app/dao"
-	"github.com/companieshouse/payment-reconciler/app/models"
+	"github.com/companieshouse/payment-reconciler/config"
+	"github.com/companieshouse/payment-reconciler/dao"
+	"github.com/companieshouse/payment-reconciler/models"
 	"github.com/golang/mock/gomock"
 	. "github.com/smartystreets/goconvey/convey"
 )

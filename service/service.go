@@ -2,9 +2,9 @@ package service
 
 import (
 	"github.com/companieshouse/chs.go/log"
-	"github.com/companieshouse/payment-reconciler/app/config"
-	"github.com/companieshouse/payment-reconciler/app/dao"
-	"github.com/companieshouse/payment-reconciler/app/models"
+	"github.com/companieshouse/payment-reconciler/config"
+	"github.com/companieshouse/payment-reconciler/dao"
+	"github.com/companieshouse/payment-reconciler/models"
 )
 
 const transactionsFileNamePrefix = "CHS_PaymentTransactions_"

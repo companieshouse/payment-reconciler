@@ -3,10 +3,10 @@
 package filetransfer
 
 import (
-	reflect "reflect"
+	"reflect"
 
-	models "github.com/companieshouse/payment-reconciler/app/models"
-	gomock "github.com/golang/mock/gomock"
+	"github.com/companieshouse/payment-reconciler/models"
+	"github.com/golang/mock/gomock"
 )
 
 // MockFileTransfer is a mock of FileTransfer interface
