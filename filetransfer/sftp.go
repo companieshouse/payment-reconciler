@@ -45,7 +45,7 @@ func (t *SFTP) UploadCSVFiles(csvs []models.CSV) error {
 
 	log.Info("Starting upload of CSV's. Initiating SSH connection to " + t.Config.SFTPServer)
 
-	client, err := ssh.Dial("tcp", t.Config.SFTPServer+":22", t.SSHClientConfig)
+	client, err := ssh.Dial("tcp", t.Config.SFTPServer+":"+t.Config.SFTPPort, t.SSHClientConfig)
 	if err != nil {
 		return fmt.Errorf("failed to establish connection: %s", err)
 	}

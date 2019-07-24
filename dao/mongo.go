@@ -22,15 +22,21 @@ func New(cfg *config.Config) *Mongo {
 	}
 }
 
+var session *mgo.Session
+
 // getMongoSession retrieves a fresh MongoDB session
 func getMongoSession(cfg *config.Config) (*mgo.Session, error) {
 
-	s, err := mgo.Dial(cfg.MongoDBURL)
-	if err != nil {
-		return nil, err
+	if session == nil {
+
+		var err error
+		session, err = mgo.Dial(cfg.MongoDBURL)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	return s.Copy(), nil
+	return session.Copy(), nil
 }
 
 // GetTransactionsData fetches transactions data
