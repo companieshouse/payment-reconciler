@@ -6,7 +6,7 @@ import (
 	"github.com/companieshouse/payment-reconciler/config"
 	"github.com/companieshouse/payment-reconciler/models"
 	"github.com/globalsign/mgo"
-	"gopkg.in/mgo.v2/bson"
+	"github.com/globalsign/mgo/bson"
 )
 
 // Mongo provides a MongoDB implementation of the DAO
@@ -34,11 +34,11 @@ func getMongoSession(cfg *config.Config) (*mgo.Session, error) {
 }
 
 // GetTransactionsData fetches transactions data
-func (m *Mongo) GetTransactionsData() (models.TransactionsData, error) {
+func (m *Mongo) GetTransactionsData() (models.TransactionsList, error) {
 
 	var transactions []models.Transaction
 
-	var transactionsData models.TransactionsData
+	var transactionsData models.TransactionsList
 
 	mongoSession, err := getMongoSession(m.Config)
 	if err != nil {
@@ -51,7 +51,7 @@ func (m *Mongo) GetTransactionsData() (models.TransactionsData, error) {
 		return transactionsData, fmt.Errorf("error retrieving transactions data: %s", err)
 	}
 
-	transactionsData = models.TransactionsData{
+	transactionsData = models.TransactionsList{
 		Transactions: transactions,
 	}
 
@@ -59,11 +59,11 @@ func (m *Mongo) GetTransactionsData() (models.TransactionsData, error) {
 }
 
 // GetProductsData fetches products data
-func (m *Mongo) GetProductsData() (models.ProductsData, error) {
+func (m *Mongo) GetProductsData() (models.ProductsList, error) {
 
 	var products []models.Product
 
-	var productsData models.ProductsData
+	var productsData models.ProductsList
 
 	mongoSession, err := getMongoSession(m.Config)
 	if err != nil {
@@ -76,7 +76,7 @@ func (m *Mongo) GetProductsData() (models.ProductsData, error) {
 		return productsData, fmt.Errorf("error retrieving products data: %s", err)
 	}
 
-	productsData = models.ProductsData{
+	productsData = models.ProductsList{
 		Products: products,
 	}
 

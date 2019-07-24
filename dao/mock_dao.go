@@ -33,10 +33,10 @@ func (m *MockDAO) EXPECT() *MockDAOMockRecorder {
 }
 
 // GetProductsData mocks base method
-func (m *MockDAO) GetProductsData() (models.ProductsData, error) {
+func (m *MockDAO) GetProductsData() (models.ProductsList, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetProductsData")
-	ret0, _ := ret[0].(models.ProductsData)
+	ret0, _ := ret[0].(models.ProductsList)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -48,10 +48,10 @@ func (mr *MockDAOMockRecorder) GetProductsData() *gomock.Call {
 }
 
 // GetTransactionsData mocks base method
-func (m *MockDAO) GetTransactionsData() (models.TransactionsData, error) {
+func (m *MockDAO) GetTransactionsData() (models.TransactionsList, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetTransactionsData")
-	ret0, _ := ret[0].(models.TransactionsData)
+	ret0, _ := ret[0].(models.TransactionsList)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

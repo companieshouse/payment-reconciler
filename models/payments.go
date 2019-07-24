@@ -2,8 +2,8 @@ package models
 
 import "reflect"
 
-// ProductsData holds an array of payment products
-type ProductsData struct {
+// ProductsList holds an array of payment products
+type ProductsList struct {
 	Products []Product
 }
 
@@ -16,8 +16,8 @@ type Product struct {
 	MadeUpDate    string `bson:"made_up_date"`
 }
 
-// TransactionsData holds an array of payment transactions
-type TransactionsData struct {
+// TransactionsList holds an array of payment transactions
+type TransactionsList struct {
 	Transactions []Transaction
 }
 
@@ -37,8 +37,8 @@ type Transaction struct {
 	DisputeDetails    string `bson:"dispute_details"`
 }
 
-// ToCSV converts TransactionsData into CSV-writable data
-func (transactions TransactionsData) ToCSV() [][]string {
+// ToCSV converts TransactionsList into CSV-writable data
+func (transactions TransactionsList) ToCSV() [][]string {
 
 	csv := make([][]string, len(transactions.Transactions)+1)
 
@@ -52,8 +52,8 @@ func (transactions TransactionsData) ToCSV() [][]string {
 	return csv
 }
 
-// ToCSV converts ProductsData into CSV-writable data
-func (products ProductsData) ToCSV() [][]string {
+// ToCSV converts ProductsList into CSV-writable data
+func (products ProductsList) ToCSV() [][]string {
 
 	csv := make([][]string, len(products.Products))
 
