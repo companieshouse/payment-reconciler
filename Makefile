@@ -25,7 +25,10 @@ test-deps: deps
 	go get -t ./...
 
 .PHONY: test
-test: test-deps
+test: test-unit
+
+.PHONY: test-unit
+test-unit: test-deps
 	go test ./...
 
 .PHONY: clean
