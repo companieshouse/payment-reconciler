@@ -8,7 +8,7 @@ import (
 type Config struct {
 	TransactionsCollection string `env:"MONGODB_PAYMENT_REC_TRANSACTIONS_COLLECTION"  flag:"mongodb-payment-rec-transactions-collection"   flagDesc:"MongoDB collection for payment transactions data"`
 	ProductsCollection     string `env:"MONGODB_PAYMENT_REC_PRODUCTS_COLLECTION"      flag:"mongodb-payment-rec-products-collection"       flagDesc:"MongoDB collection for payment products data"`
-	Database               string `env:"MONGODB_DATABASE"                             flag:"mongodb-database"                              flagDesc:"MongoDB database for data"`
+	Database               string `env:"MONGODB_PAYMENT_REC_DATABASE"                 flag:"mongodb-payment-rec-database"                  flagDesc:"MongoDB database for payment reconciliation data"`
 	MongoDBURL             string `env:"MONGODB_URL"                                  flag:"mongodb-url"                                   flagDesc:"MongoDB server URL"`
 	SFTPServer             string `env:"SFTP_SERVER"                                  flag:"sftp-server"                                   flagDesc:"Name of the SFTP server"`
 	SFTPPort               string `env:"SFTP_PORT"                                    flag:"sftp-port"                                     flagDesc:"Port to connect to the SFTP server"`
