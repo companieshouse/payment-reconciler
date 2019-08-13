@@ -9,7 +9,7 @@ type ProductsList struct {
 
 // Product contains data of a payment product
 type Product struct {
-	PaymentRef    string `bson:"payment_ref"`
+	PaymentRef    string `bson:"payment_reference"`
 	ProductCode   string `bson:"product_code"`
 	CompanyNumber string `bson:"company_number"`
 	FilingDate    string `bson:"filing_date"`
