@@ -6,3 +6,5 @@ payment_reconciler_bucket = "payment_reconciler"
 stage = "dev"
 env = "cookie"
 config_bucket_name = "config.ch.gov.uk"
+subnet_ids=subnet-33679069,subnet-7c708726
+security_group_ids=sg-0c554acc6772c7a17

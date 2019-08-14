@@ -48,7 +48,10 @@ data "aws_iam_policy_document" "payment_reconciler_execution" {
       "s3:GetObject",
       "logs:PutDestination",
       "logs:DescribeResourcePolicies",
-      "logs:DescribeDestinations"
+      "logs:DescribeDestinations",
+      "ec2:CreateNetworkInterface",
+      "ec2:DescribeNetworkInterfaces",
+      "ec2:DeleteNetworkInterface"
     ]
 
     resources = [
