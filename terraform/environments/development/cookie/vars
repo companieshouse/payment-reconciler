@@ -5,5 +5,7 @@
 payment_reconciler_bucket = "payment_reconciler"
 env = "cookie"
 config_bucket_name = "config.ch.gov.uk"
-subnet_ids=["subnet-33679069","subnet-7c708726"]
-security_group_ids="sg-0c554acc6772c7a17"
+
+state_prefix = "mm"
+farm = "farm3"
+network_state_bucket="ch-development-terraform-state"

@@ -7,7 +7,5 @@ variable project_name {}
 variable release_version {}
 variable execution_role {}
 variable payment_reconciler_bucket {}
-variable subnet_ids {
-    type = "list"
-}
+variable application_ids {}
 variable security_group_ids {}

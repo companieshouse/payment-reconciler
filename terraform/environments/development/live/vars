@@ -4,4 +4,8 @@
 log_level = "info"
 payment_reconciler_bucket = "<prod file bucket name>"
 release_bucket_name = "release.ch.gov.uk"
-stage = "prod"
+stage = "live"
+
+state_prefix = "mm"
+farm = "<FARM>"
+network_state_bucket="ch-development-terraform-state"
