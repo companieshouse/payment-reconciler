@@ -36,6 +36,8 @@ variable payment_reconciler_bucket {
 
 variable release_version {}
 
-variable subnet_ids {}
+variable subnet_ids {
+  type = "list"
+}
 
 variable security_group_ids {}

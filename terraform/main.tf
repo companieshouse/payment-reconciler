@@ -17,6 +17,8 @@ module "lambda" {
   release_version               = "${var.release_version}"
   release_bucket_name           = "${var.release_bucket_name}"
   execution_role                = "${module.lambda-roles.execution_role}"
+  subnet_ids                    = "${var.subnet_ids}"
+  security_group_ids            = "${var.security_group_ids}"
 }
 
 module "lambda-roles" {
