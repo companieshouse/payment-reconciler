@@ -6,7 +6,10 @@ import (
 	"github.com/companieshouse/payment-reconciler/filetransfer"
 	"github.com/companieshouse/payment-reconciler/models"
 	"github.com/companieshouse/payment-reconciler/service"
+	"time"
 )
+
+const dateFormat = "2006-01-02"
 
 // Lambda provides AWS lambda execution functionality
 type Lambda struct {
@@ -28,7 +31,27 @@ func New(cfg *config.Config) *Lambda {
 // Execute handles lambda execution
 func (lambda *Lambda) Execute(reconciliationMetaData *models.ReconciliationMetaData) error {
 
-	log.Info("Payment reconciliation lambda executing. Creating transactions CSV.")
+	if reconciliationMetaData.ReconciliationDate == "" {
+
+		reconciliationDateTime := time.Now()
+		reconciliationMetaData.ReconciliationDate = reconciliationDateTime.Format(dateFormat)
+
+		startTime := reconciliationDateTime.Truncate(24 * time.Hour)
+		reconciliationMetaData.StartTime = startTime
+		reconciliationMetaData.EndTime = startTime.Add(24 * time.Hour)
+	} else {
+
+		startTime, err := time.Parse(dateFormat, reconciliationMetaData.ReconciliationDate)
+		if err != nil {
+			log.Error(err)
+			return err
+		}
+
+		reconciliationMetaData.StartTime = startTime
+		reconciliationMetaData.EndTime = startTime.Add(24 * time.Hour)
+	}
+
+	log.Info("Payment reconciliation lambda executing. Reconciling payments for date: " + reconciliationMetaData.ReconciliationDate + ". Creating transactions CSV.")
 
 	transactionsCSV, err := lambda.Service.GetTransactionsCSV(reconciliationMetaData)
 	if err != nil {

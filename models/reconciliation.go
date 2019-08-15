@@ -1,6 +1,10 @@
 package models
 
-// ReconciliationMetaData holds the JSON payload of the executed lambda
+import "time"
+
+// ReconciliationMetaData holds meta data regarding the date for which to reconcile payments
 type ReconciliationMetaData struct {
-	Date string `json:"date"`
+	ReconciliationDate string     `json:"reconciliation_date"`
+	StartTime          time.Time
+	EndTime            time.Time
 }
