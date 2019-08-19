@@ -5,7 +5,6 @@ This provisions the payment-reconciler Lambda function which is triggered by the
 
 ## Config
 The following config is required to deploy the project:
-- payment_reconciler_bucket: `Optional` defaults to payment_reconciler
 - release_bucket_name: `Optional` Release bucket for payment-reconciler, defaults to `release.ch.gov.uk`
 - release_version: `Required` Github release version
 - stage: `Required` deployment stage

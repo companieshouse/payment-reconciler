@@ -23,19 +23,14 @@ variable timeout_seconds {
 default = "6"
 }
 
-variable config_bucket_name {
-}
 variable env {}
 
 variable app_env_directory {
   default = "env"
-}
-variable payment_reconciler_bucket {
-  default = "payment_reconciler"
 }
 
 variable release_version {}
 
 variable state_prefix {}
 variable farm {}
-variable network_state_bucket {}
+variable aws_bucket {}

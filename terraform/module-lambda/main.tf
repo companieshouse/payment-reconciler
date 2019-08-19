@@ -10,12 +10,7 @@ resource "aws_lambda_function" "payment_reconciler" {
   memory_size   = "${var.memory_megabytes}"
   timeout       = "${var.timeout_seconds}"
   runtime       = "${var.runtime}"
-
-  environment {
-    variables = {
-      S3_BUCKET_NAME = "${var.payment_reconciler_bucket}"
-    }
-  }
+  
   vpc_config {
     subnet_ids         = ["${split(",", var.application_ids)}"]
     security_group_ids = ["${list(var.security_group_ids)}"]
