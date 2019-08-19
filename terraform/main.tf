@@ -39,6 +39,9 @@ module "lambda-roles" {
 
 module "security-group" {
   source                    = "module-security-group"
+  vpc_id                    ="${var.vpc_id}"
+  env                       = "${var.env}"
+  service                   = "${var.service}"
 }
 
 module "cloud-watch" {
