@@ -8,3 +8,5 @@ farm = "farm3"
 aws_bucket = "ch-development-terraform-state"
 workspace_key_prefix = "payment-reconciler"
 state_file_name = "payment-reconciler.tfstate"
+vpc_id = "vpc-83c425e7" # monitor-vpc
+application_ids = "subnet-33679069,subnet-7c708726" #cookie-mongo-subnet-id

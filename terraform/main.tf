@@ -27,7 +27,7 @@ module "lambda" {
   release_bucket_name           = "${var.release_bucket_name}"
   execution_role                = "${module.lambda-roles.execution_role}"
   application_ids               = "${data.terraform_remote_state.networks.application_ids}"
-  security_group_ids            = "${module.security-group.security_group_ids}"
+  security_group_ids            = "${module.security-group.lambda_into_vpc_id}"
 }
 
 module "lambda-roles" {

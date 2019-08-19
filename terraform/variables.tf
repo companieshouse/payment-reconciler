@@ -34,3 +34,10 @@ variable release_version {}
 variable state_prefix {}
 variable farm {}
 variable aws_bucket {}
+
+variable service {
+  default = "payment-reconciler"
+}
+
+variable vpc_id {
+}
