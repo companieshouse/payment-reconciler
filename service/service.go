@@ -39,7 +39,7 @@ func (s *ServiceImpl) GetTransactionsCSV(reconciliationMetaData *models.Reconcil
 
 	log.Info("Fetching transactions data.")
 
-	transactions, err := s.DAO.GetTransactionsData()
+	transactions, err := s.DAO.GetTransactionsData(reconciliationMetaData)
 	if err != nil {
 		return csv, err
 	}
@@ -59,7 +59,7 @@ func (s *ServiceImpl) GetProductsCSV(reconciliationMetaData *models.Reconciliati
 
 	log.Info("Fetching products data.")
 
-	products, err := s.DAO.GetProductsData()
+	products, err := s.DAO.GetProductsData(reconciliationMetaData)
 	if err != nil {
 		return csv, err
 	}
@@ -77,6 +77,6 @@ func constructCSV(data models.CSVable, fileNamePrefix string, reconciliationMeta
 
 	return models.CSV{
 		Data:     data,
-		FileName: fileNamePrefix + reconciliationMetaData.Date + csvFileSuffix,
+		FileName: fileNamePrefix + reconciliationMetaData.ReconciliationDate + csvFileSuffix,
 	}
 }

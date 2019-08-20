@@ -6,6 +6,6 @@ import (
 
 // DAO provides access to the database
 type DAO interface {
-	GetTransactionsData() (models.TransactionsList, error)
-	GetProductsData() (models.ProductsList, error)
+	GetTransactionsData(reconciliationMetaData *models.ReconciliationMetaData) (models.TransactionsList, error)
+	GetProductsData(reconciliationMetaData *models.ReconciliationMetaData) (models.ProductsList, error)
 }

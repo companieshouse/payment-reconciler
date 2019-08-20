@@ -40,7 +40,7 @@ func getMongoSession(cfg *config.Config) (*mgo.Session, error) {
 }
 
 // GetTransactionsData fetches transactions data
-func (m *Mongo) GetTransactionsData() (models.TransactionsList, error) {
+func (m *Mongo) GetTransactionsData(reconciliationMetaData *models.ReconciliationMetaData) (models.TransactionsList, error) {
 
 	var transactions []models.Transaction
 
@@ -52,7 +52,10 @@ func (m *Mongo) GetTransactionsData() (models.TransactionsList, error) {
 	}
 	defer mongoSession.Close()
 
-	err = mongoSession.DB(m.Config.Database).C(m.Config.TransactionsCollection).Find(bson.M{}).All(&transactions)
+	err = mongoSession.DB(m.Config.Database).C(m.Config.TransactionsCollection).Find(bson.M{"transaction_date": bson.M{
+		"$gt": reconciliationMetaData.StartTime,
+		"$lt": reconciliationMetaData.EndTime,
+	}}).All(&transactions)
 	if err != nil {
 		return transactionsData, fmt.Errorf("error retrieving transactions data: %s", err)
 	}
@@ -65,7 +68,7 @@ func (m *Mongo) GetTransactionsData() (models.TransactionsList, error) {
 }
 
 // GetProductsData fetches products data
-func (m *Mongo) GetProductsData() (models.ProductsList, error) {
+func (m *Mongo) GetProductsData(reconciliationMetaData *models.ReconciliationMetaData) (models.ProductsList, error) {
 
 	var products []models.Product
 
@@ -77,7 +80,10 @@ func (m *Mongo) GetProductsData() (models.ProductsList, error) {
 	}
 	defer mongoSession.Close()
 
-	err = mongoSession.DB(m.Config.Database).C(m.Config.ProductsCollection).Find(bson.M{}).All(&products)
+	err = mongoSession.DB(m.Config.Database).C(m.Config.ProductsCollection).Find(bson.M{"transaction_date": bson.M{
+		"$gt": reconciliationMetaData.StartTime,
+		"$lt": reconciliationMetaData.EndTime,
+	}}).All(&products)
 	if err != nil {
 		return productsData, fmt.Errorf("error retrieving products data: %s", err)
 	}
