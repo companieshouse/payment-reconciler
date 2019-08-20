@@ -4,7 +4,7 @@
 resource "aws_lambda_function" "payment_reconciler" {
   s3_bucket     = "${var.release_bucket_name}"
   s3_key        = "${var.project_name}/${var.project_name}-${var.release_version}.zip"
-  function_name = "${var.project_name}"
+  function_name = "${var.project_name}-${var.env}"
   role          = "${var.execution_role}"
   handler       = "${var.handler}"
   memory_size   = "${var.memory_megabytes}"

@@ -41,3 +41,7 @@ variable service {
 
 variable vpc_id {
 }
+
+variable application_ids {
+  
+}
