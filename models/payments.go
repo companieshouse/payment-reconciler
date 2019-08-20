@@ -1,6 +1,9 @@
 package models
 
-import "reflect"
+import (
+	"fmt"
+	"reflect"
+)
 
 // ProductsList holds an array of payment products
 type ProductsList struct {
@@ -71,7 +74,7 @@ func getSlice(resource interface{}) []string {
 	slice := make([]string, val.NumField())
 
 	for i := 0; i < val.NumField(); i++ {
-		slice[i] = val.Field(i).String()
+		slice[i] = fmt.Sprintf("%v", val.Field(i))
 	}
 
 	return slice
