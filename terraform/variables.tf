@@ -7,7 +7,7 @@ variable project_name {
 }
 
 variable handler {
-  default = "main"
+  default = "payment-reconciler"
 }
 
 variable memory_megabytes {
