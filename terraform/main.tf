@@ -28,6 +28,7 @@ module "lambda" {
   execution_role                = "${module.lambda-roles.execution_role}"
   application_ids               = "${var.application_ids}"
   security_group_ids            = "${module.security-group.lambda_into_vpc_id}"
+  env                       = "${var.env}"
 }
 
 module "lambda-roles" {
