@@ -6,3 +6,6 @@ payment-reconciler*
 
 # Lint files
 lint.txt
+
+
+.DS_Store 
