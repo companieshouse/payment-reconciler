@@ -1,5 +1,5 @@
 resource "aws_security_group" "payment_reconciler" {
-  name        = "${var.env}-${var.service}-lambda-into-vpc"
+  name        = "${var.environment}-${var.service}-lambda-into-vpc"
   description = "Outbound rules for payment reconciler lambda"
   vpc_id = "${var.vpc_id}"
 
