@@ -68,7 +68,7 @@ data "aws_iam_policy_document" "payment_reconciler_execution" {
     ]
 
     resources = [
-      "arn:aws:logs:::log-group:/aws/lambda/${var.project_name}",
+      "arn:aws:logs:::log-group:/aws/lambda/${var.service}",
       "arn:aws:logs:*:*:log-group:*:*:*",
     ]
   }

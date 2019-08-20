@@ -1,4 +1,4 @@
-variable project_name {}
+variable service {}
 
 variable env {}
 variable app_env_directory {}

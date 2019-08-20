@@ -18,7 +18,7 @@ data "terraform_remote_state" "networks" {
 
 module "lambda" {
   source                        = "module-lambda"
-  project_name                  = "${var.project_name}"
+  service                       = "${var.service}"
   handler                       = "${var.handler}"
   memory_megabytes              = "${var.memory_megabytes}"
   runtime                       = "${var.runtime}"
@@ -28,26 +28,26 @@ module "lambda" {
   execution_role                = "${module.lambda-roles.execution_role}"
   application_ids               = "${var.application_ids}"
   security_group_ids            = "${module.security-group.lambda_into_vpc_id}"
-  env                       = "${var.env}"
+  environment                   = "${var.environment}"
 }
 
 module "lambda-roles" {
   source                    = "module-lambda-roles"
-  project_name              = "${var.project_name}"
-  env                       = "${var.env}"
+  service                   = "${var.service}"
+  environment               = "${var.environment}"
   app_env_directory         = "${var.app_env_directory}"
 }
 
 module "security-group" {
   source                    = "module-security-group"
   vpc_id                    ="${var.vpc_id}"
-  env                       = "${var.env}"
+  environment               = "${var.environment}"
   service                   = "${var.service}"
 }
 
 module "cloud-watch" {
   source                        = "module-cloud-watch"
-  project_name                  = "${var.project_name}"
+  service                       = "${var.service}"
   arn                           = "${module.lambda.arn}"
-  env                           = "${var.env}"
+  environment                   = "${var.environment}"
 }

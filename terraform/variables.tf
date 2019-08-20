@@ -2,10 +2,6 @@ variable aws_region {
   default = "eu-west-1"
 }
 
-variable project_name {
-  default = "payment-reconciler"
-}
-
 variable handler {
   default = "main"
 }
@@ -23,7 +19,7 @@ variable timeout_seconds {
 default = "6"
 }
 
-variable env {}
+variable environment {}
 
 variable app_env_directory {
   default = "env"

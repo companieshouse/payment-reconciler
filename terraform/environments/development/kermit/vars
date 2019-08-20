@@ -2,7 +2,7 @@
 # Environment
 # ------------------------------------------------------------------------------
 
-env = "kermit"
+environment = "kermit"
 state_prefix = "mm"
 farm = "farm1"
 aws_bucket = "ch-development-terraform-state"

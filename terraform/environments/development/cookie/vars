@@ -2,7 +2,7 @@
 # Environment
 # ------------------------------------------------------------------------------
 
-env = "cookie"
+environment = "cookie"
 state_prefix = "mm"
 farm = "farm3"
 aws_bucket = "ch-development-terraform-state"
