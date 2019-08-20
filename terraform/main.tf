@@ -7,15 +7,6 @@ terraform {
   }
 }
 
-data "terraform_remote_state" "networks" {
-    backend = "s3"
-    config {
-        bucket = "${var.aws_bucket}"
-        key = "${var.state_prefix}/${var.farm}/${var.farm}.tfstate"
-        region = "${var.aws_region}"
-    }
-}
-
 module "lambda" {
   source                        = "module-lambda"
   service                       = "${var.service}"
@@ -26,7 +17,7 @@ module "lambda" {
   release_version               = "${var.release_version}"
   release_bucket_name           = "${var.release_bucket_name}"
   execution_role                = "${module.lambda-roles.execution_role}"
-  application_ids               = "${data.terraform_remote_state.networks.data_ids}"
+  application_ids               = "${var.application_ids}"
   security_group_ids            = "${module.security-group.lambda_into_vpc_id}"
   environment                   = "${var.environment}"
 }
