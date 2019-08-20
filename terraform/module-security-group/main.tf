@@ -1,4 +1,4 @@
-resource "aws_security_group" "paynment_reconciler_sg" {
+resource "aws_security_group" "payment_reconciler_sg" {
   name        = "${var.env}-${var.service}-lambda-into-vpc"
   description = "Outbound rules for payment reconciler lambda"
   vpc_id = "${var.vpc_id}"
@@ -12,5 +12,5 @@ resource "aws_security_group" "paynment_reconciler_sg" {
 }
 
 output "lambda_into_vpc_id" {
-  value = "${aws_security_group.paynment_reconciler_sg.id}"
+  value = "${aws_security_group.payment_reconciler_sg.id}"
 }
