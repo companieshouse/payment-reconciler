@@ -3,7 +3,7 @@ variable aws_region {
 }
 
 variable handler {
-  default = "main"
+  default = "payment-reconciler"
 }
 
 variable memory_megabytes {
