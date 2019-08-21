@@ -31,7 +31,7 @@ module "lambda-roles" {
 
 module "security-group" {
   source                    = "module-security-group"
-  vpc_id                    ="${var.vpc_id}"
+  vpc_id                    = "${var.vpc_id}"
   environment               = "${var.environment}"
   service                   = "${var.service}"
 }
