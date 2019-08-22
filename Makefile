@@ -43,7 +43,8 @@ endif
 	$(info Packaging version: $(version))
 	$(eval tmpdir:=$(shell mktemp -d build-XXXXXXXXXX))
 	cp ./$(bin) $(tmpdir)
-	cd $(tmpdir) && zip -r ../$(bin)-$(version).zip $(bin)
+	cp -r ./terraform  $(tmpdir)/terraform
+	cd $(tmpdir) && zip -r ../$(bin)-$(version).zip $(bin) terraform
 	rm -rf $(tmpdir)
 
 .PHONY: dist
