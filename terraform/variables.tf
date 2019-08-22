@@ -27,7 +27,6 @@ variable app_env_directory {
 
 variable release_version {}
 
-variable state_prefix {}
 
 variable aws_bucket {}
 
