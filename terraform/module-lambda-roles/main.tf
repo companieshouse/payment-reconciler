@@ -78,7 +78,7 @@ data "aws_iam_policy_document" "payment_reconciler_execution" {
 # Roles
 # ------------------------------------------------------------------------------
 resource "aws_iam_role" "payment_reconciler_execution" {
-  name               = "payment-reconciler-execution-${var.environment}"
+  name               = "${var.service}-execution-${var.environment}"
   assume_role_policy = "${data.aws_iam_policy_document.payment_reconciler_trust.json}"
 }
 
