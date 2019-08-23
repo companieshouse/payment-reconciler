@@ -1,6 +1,10 @@
 package models
 
-import "reflect"
+import (
+	"fmt"
+	"reflect"
+	"time"
+)
 
 // ProductsList holds an array of payment products
 type ProductsList struct {
@@ -10,7 +14,7 @@ type ProductsList struct {
 // Product contains data of a payment product
 type Product struct {
 	PaymentRef    string `bson:"payment_reference"`
-	ProductCode   string `bson:"product_code"`
+	ProductCode   int `bson:"product_code"`
 	CompanyNumber string `bson:"company_number"`
 	FilingDate    string `bson:"filing_date"`
 	MadeUpDate    string `bson:"made_up_date"`
@@ -24,7 +28,7 @@ type TransactionsList struct {
 // Transaction contains data of a payment transaction
 type Transaction struct {
 	TransactionID     string `bson:"transaction_id"`
-	TransactionDate   string `bson:"transaction_date"`
+	TransactionDate   time.Time `bson:"transaction_date"`
 	Email             string `bson:"email"`
 	PaymentMethod     string `bson:"payment_method"`
 	Amount            string `bson:"amount"`
@@ -71,7 +75,7 @@ func getSlice(resource interface{}) []string {
 	slice := make([]string, val.NumField())
 
 	for i := 0; i < val.NumField(); i++ {
-		slice[i] = val.Field(i).String()
+		slice[i] = fmt.Sprintf("%v", val.Field(i))
 	}
 
 	return slice
