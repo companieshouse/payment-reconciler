@@ -48,7 +48,10 @@ data "aws_iam_policy_document" "payment_reconciler_execution" {
       "s3:GetObject",
       "logs:PutDestination",
       "logs:DescribeResourcePolicies",
-      "logs:DescribeDestinations"
+      "logs:DescribeDestinations",
+      "ec2:CreateNetworkInterface",
+      "ec2:DescribeNetworkInterfaces",
+      "ec2:DeleteNetworkInterface"
     ]
 
     resources = [
@@ -65,10 +68,8 @@ data "aws_iam_policy_document" "payment_reconciler_execution" {
     ]
 
     resources = [
-      "arn:aws:logs:::log-group:/aws/lambda/${var.project_name}",
+      "arn:aws:logs:::log-group:/aws/lambda/${var.service}",
       "arn:aws:logs:*:*:log-group:*:*:*",
-      "arn:aws:s3:::${var.payment_reconciler_bucket}/*",
-      "arn:aws:s3:::${var.config_bucket_name}/${var.env}/${var.project_name}/${var.app_env_directory}",
     ]
   }
 }
@@ -77,7 +78,7 @@ data "aws_iam_policy_document" "payment_reconciler_execution" {
 # Roles
 # ------------------------------------------------------------------------------
 resource "aws_iam_role" "payment_reconciler_execution" {
-  name               = "payment-reconciler-execution"
+  name               = "${var.service}-execution-${var.environment}"
   assume_role_policy = "${data.aws_iam_policy_document.payment_reconciler_trust.json}"
 }
 

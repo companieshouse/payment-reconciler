@@ -1,9 +1,5 @@
 variable aws_region {
-  default = "eu-west-1"
-}
 
-variable project_name {
-  default = "payment-reconciler"
 }
 
 variable handler {
@@ -23,15 +19,24 @@ variable timeout_seconds {
 default = "6"
 }
 
-variable config_bucket_name {
-}
-variable env {}
+variable environment {}
 
 variable app_env_directory {
   default = "env"
 }
-variable payment_reconciler_bucket {
-  default = "payment_reconciler"
-}
 
 variable release_version {}
+
+
+variable aws_bucket {}
+
+variable service {
+  default = "payment-reconciler"
+}
+
+variable vpc_id {
+  
+}
+variable application_ids {
+  
+}

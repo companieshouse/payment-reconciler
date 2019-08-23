@@ -1,7 +1,0 @@
-# ------------------------------------------------------------------------------
-# Environment
-# ------------------------------------------------------------------------------
-log_level = "info"
-payment_reconciler_bucket = "<preprod file bucket name>"
-release_bucket_name = "release.ch.gov.uk"
-stage = "preprod"

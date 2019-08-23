@@ -1,7 +1,7 @@
-variable project_name {}
-variable payment_reconciler_bucket {}
+variable service {}
+
 variable arn {}
 
-variable env {
+variable environment {
   
 }
