@@ -26,7 +26,6 @@ module "lambda-roles" {
   source                    = "module-lambda-roles"
   service                   = "${var.service}"
   environment               = "${var.environment}"
-  app_env_directory         = "${var.app_env_directory}"
 }
 
 module "security-group" {
@@ -39,6 +38,6 @@ module "security-group" {
 module "cloud-watch" {
   source                        = "module-cloud-watch"
   service                       = "${var.service}"
-  arn                           = "${module.lambda.arn}"
+  lambda_arn                    = "${module.lambda.lambda_arn}"
   environment                   = "${var.environment}"
 }
