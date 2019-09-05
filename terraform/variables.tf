@@ -33,3 +33,7 @@ variable service {
 variable vpc_id {}
 
 variable application_ids {}
+
+variable cron_schedule {}
+
+variable workspace_key_prefix {}

@@ -20,6 +20,7 @@ module "lambda" {
   application_ids               = "${var.application_ids}"
   security_group_ids            = "${module.security-group.lambda_into_vpc_id}"
   environment                   = "${var.environment}"
+  workspace_key_prefix          = "${var.workspace_key_prefix}"
 }
 
 module "lambda-roles" {
@@ -40,4 +41,5 @@ module "cloud-watch" {
   service                       = "${var.service}"
   lambda_arn                    = "${module.lambda.lambda_arn}"
   environment                   = "${var.environment}"
+  cron_schedule                 = "${var.cron_schedule}"
 }
