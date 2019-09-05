@@ -32,7 +32,7 @@ variable service {
 
 variable vpc_id {}
 
-variable application_ids {}
+variable subnet_ids {}
 
 variable cron_schedule {}
 

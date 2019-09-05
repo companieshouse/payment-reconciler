@@ -12,7 +12,7 @@ resource "aws_lambda_function" "payment_reconciler" {
   runtime       = "${var.runtime}"
   
   vpc_config {
-    subnet_ids         = ["${split(",", var.application_ids)}"]
+    subnet_ids         = ["${split(",", var.subnet_ids)}"]
     security_group_ids = ["${list(var.security_group_ids)}"]
   }
 }
