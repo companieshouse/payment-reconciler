@@ -4,7 +4,7 @@ variable release_bucket_name {}
 variable runtime {}
 variable timeout_seconds {}
 variable service {}
-variable version {}
+variable release_version {}
 variable execution_role {}
 variable subnet_ids {}
 variable security_group_ids {}
