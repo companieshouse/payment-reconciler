@@ -14,7 +14,7 @@ module "lambda" {
   memory_megabytes              = "${var.memory_megabytes}"
   runtime                       = "${var.runtime}"
   timeout_seconds               = "${var.timeout_seconds}" 
-  version               = "${var.version}"
+  release_version               = "${var.release_version}"
   release_bucket_name           = "${var.release_bucket_name}"
   execution_role                = "${module.lambda-roles.execution_role}"
   subnet_ids                    = "${var.subnet_ids}"
