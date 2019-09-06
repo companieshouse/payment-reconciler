@@ -1,7 +1,7 @@
 variable service {}
 
-variable arn {}
+variable lambda_arn {}
 
-variable environment {
-  
-}
+variable environment {}
+
+variable cron_schedule {}

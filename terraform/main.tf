@@ -17,16 +17,16 @@ module "lambda" {
   release_version               = "${var.release_version}"
   release_bucket_name           = "${var.release_bucket_name}"
   execution_role                = "${module.lambda-roles.execution_role}"
-  application_ids               = "${var.application_ids}"
+  subnet_ids                    = "${var.subnet_ids}"
   security_group_ids            = "${module.security-group.lambda_into_vpc_id}"
   environment                   = "${var.environment}"
+  workspace_key_prefix          = "${var.workspace_key_prefix}"
 }
 
 module "lambda-roles" {
   source                    = "module-lambda-roles"
   service                   = "${var.service}"
   environment               = "${var.environment}"
-  app_env_directory         = "${var.app_env_directory}"
 }
 
 module "security-group" {
@@ -39,6 +39,7 @@ module "security-group" {
 module "cloud-watch" {
   source                        = "module-cloud-watch"
   service                       = "${var.service}"
-  arn                           = "${module.lambda.arn}"
+  lambda_arn                    = "${module.lambda.lambda_arn}"
   environment                   = "${var.environment}"
+  cron_schedule                 = "${var.cron_schedule}"
 }
