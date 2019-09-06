@@ -22,7 +22,7 @@ variable timeout_seconds {
 
 variable environment {}
 
-variable release_version {}
+variable version {}
 
 variable aws_bucket {}
 

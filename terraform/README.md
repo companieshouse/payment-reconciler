@@ -6,7 +6,7 @@ This provisions the payment-reconciler Lambda function which is triggered by the
 ## Config
 The following config is required to deploy the project:
 - release_bucket_name: `Optional` Release bucket for payment-reconciler, defaults to `release.ch.gov.uk`
-- release_version: `Required` Github release version
+- version: `Required` Github release version
 - stage: `Required` deployment stage
 - environment: `Required` to read the environment variable from.
 
@@ -22,10 +22,10 @@ source ./environments/development/dev/terraform.cfg
 terraform init 
 
 # Plan provisioning
-TF_VAR_release_version=<release number> terraform plan -var-file=environments/development/<environment>/vars
+TF_VAR_version=<release number> terraform plan -var-file=environments/development/<environment>/vars
 
 # Apply
-TF_VAR_release_version=<release number> terraform apply -var-file=environments/development/<environment>/vars
+TF_VAR_version=<release number> terraform apply -var-file=environments/development/<environment>/vars
 ```
 
 So far we only have development environments configuration. 
