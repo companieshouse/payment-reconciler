@@ -1,9 +1,7 @@
 TESTS ?= ./...
 
-bin         := payment-reconciler
-commit      := $(shell git rev-parse --short HEAD)
-tag         := $(shell git tag -l 'v*-rc*' --points-at HEAD)
-version     := $(shell if [[ -n "$(tag)" ]]; then echo $(tag) | sed 's/^v//'; else echo $(commit); fi)
+bin      := payment-reconciler
+version  := "unversioned"
 
 .EXPORT_ALL_VARIABLES:
 GO111MODULE = on
