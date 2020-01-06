@@ -26,7 +26,7 @@ test: test-unit
 
 .PHONY: test-unit
 test-unit:
-	go test $(TESTS)
+	go test $(TESTS) -run 'Unit' -coverprofile=coverage.out
 
 .PHONY: clean
 clean:
