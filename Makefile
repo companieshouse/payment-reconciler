@@ -1,5 +1,10 @@
-bin     := payment-reconciler
-version := "unversioned"
+TESTS ?= ./...
+
+bin      := payment-reconciler
+version  := "unversioned"
+
+.EXPORT_ALL_VARIABLES:
+GO111MODULE = on
 
 lint_output  := lint.txt
 
@@ -10,26 +15,16 @@ all: build
 fmt:
 	go fmt ./...
 
-.PHONY: deps
-deps:
-	go get ./...
-
 .PHONY: build
-build: deps fmt $(bin)
-
-$(bin):
-	go build -o ./$(bin)
-
-.PHONY: test-deps
-test-deps: deps
-	go get -t ./...
+build: fmt
+	go build
 
 .PHONY: test
 test: test-unit
 
 .PHONY: test-unit
-test-unit: test-deps
-	go test ./... -run 'Unit' -coverprofile=coverage.out
+test-unit:
+	go test $(TESTS) -run 'Unit' -coverprofile=coverage.out
 
 .PHONY: clean
 clean:
@@ -51,6 +46,7 @@ endif
 dist: clean build package
 
 .PHONY: lint
+lint: GO111MODULE=off
 lint:
 	go get -u github.com/alecthomas/gometalinter
 	gometalinter --install
