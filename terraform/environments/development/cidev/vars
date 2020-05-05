@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 
 environment = "cidev"
-aws_bucket = "ch-development-terraform-state"
+aws_bucket = "ch-development-terraform-state-london"
 workspace_key_prefix = "payment-reconciler"
 state_file_name = "payment-reconciler.tfstate"
 cron_schedule = "cron(0 23 * * ? *)"
