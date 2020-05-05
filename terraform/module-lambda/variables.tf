@@ -6,7 +6,11 @@ variable timeout_seconds {}
 variable service {}
 variable release_version {}
 variable execution_role {}
-variable subnet_ids {}
-variable security_group_ids {}
+variable subnet_ids {
+    type = list(string)
+}
+variable security_group_ids {
+    type = list(string)
+}
 variable environment {}
 variable workspace_key_prefix {}

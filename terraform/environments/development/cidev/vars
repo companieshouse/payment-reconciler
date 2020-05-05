@@ -11,5 +11,5 @@ aws_region = "eu-west-2"
 release_bucket_name = "development-eu-west-2.release.ch.gov.uk"
 
 release_version = "1.0.15"
-subnet_ids = "subnet-0c909ef698555c089"
+subnet_ids = ["subnet-0c909ef698555c089"]
 vpc_id = "vpc-074ff55ed5182e144"

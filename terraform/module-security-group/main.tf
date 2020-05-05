@@ -1,7 +1,7 @@
 resource "aws_security_group" "payment_reconciler" {
   name        = "${var.environment}-${var.service}-lambda-into-vpc"
   description = "Outbound rules for payment reconciler lambda"
-  vpc_id = "${var.vpc_id}"
+  vpc_id = var.vpc_id
 
   egress {
     from_port       = 0
@@ -12,5 +12,5 @@ resource "aws_security_group" "payment_reconciler" {
 }
 
 output "lambda_into_vpc_id" {
-  value = "${aws_security_group.payment_reconciler.id}"
+  value = aws_security_group.payment_reconciler.id
 }
