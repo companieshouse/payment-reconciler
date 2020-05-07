@@ -1,3 +1,7 @@
+data "vault_generic_secret" "lambda_environment_variables" {
+  path = "applications/${var.aws_profile}/${var.environment}/${var.service}/lambda_environment_variables"
+}
+
 # ------------------------------------------------------------------------------
 # Lambdas
 # ------------------------------------------------------------------------------
@@ -15,7 +19,9 @@ resource "aws_lambda_function" "payment_reconciler" {
     subnet_ids         = var.subnet_ids
     security_group_ids = var.security_group_ids
   }
-
+  environment {
+    variables = data.vault_generic_secret.lambda_environment_variables.data
+  }
 }
 
 output "lambda_arn" {

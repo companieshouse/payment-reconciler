@@ -13,4 +13,5 @@ variable security_group_ids {
     type = list(string)
 }
 variable environment {}
+variable aws_profile {}
 variable workspace_key_prefix {}

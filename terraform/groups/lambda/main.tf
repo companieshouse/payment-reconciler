@@ -7,6 +7,15 @@ terraform {
   }
 }
 
+provider "vault" {
+  auth_login {
+    path = "auth/userpass/login/${var.vault_username}"
+    parameters = {
+      password = var.vault_password
+    }
+  }
+}
+
 module "lambda" {
   source               = "./module-lambda"
   service              = var.service
@@ -17,6 +26,7 @@ module "lambda" {
   release_version      = var.release_version
   release_bucket_name  = var.release_bucket_name
   execution_role       = module.lambda-roles.execution_role
+  aws_profile          = var.aws_profile
   subnet_ids           = var.subnet_ids
   security_group_ids   = [module.security-group.lambda_into_vpc_id]
   environment          = var.environment
