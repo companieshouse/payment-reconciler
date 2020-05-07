@@ -30,7 +30,6 @@ module "lambda" {
   subnet_ids           = var.subnet_ids
   security_group_ids   = [module.security-group.lambda_into_vpc_id]
   environment          = var.environment
-  workspace_key_prefix = var.workspace_key_prefix
 }
 
 module "lambda-roles" {

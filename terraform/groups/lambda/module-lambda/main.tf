@@ -7,7 +7,7 @@ data "vault_generic_secret" "lambda_environment_variables" {
 # ------------------------------------------------------------------------------
 resource "aws_lambda_function" "payment_reconciler" {
   s3_bucket     = var.release_bucket_name
-  s3_key        = "${var.workspace_key_prefix}/${var.service}-${var.release_version}.zip"
+  s3_key        = "${var.service}/${var.service}-${var.release_version}.zip"
   function_name = "${var.service}-${var.environment}"
   role          = var.execution_role
   handler       = var.handler

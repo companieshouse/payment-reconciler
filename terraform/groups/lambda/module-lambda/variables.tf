@@ -14,4 +14,3 @@ variable security_group_ids {
 }
 variable environment {}
 variable aws_profile {}
-variable workspace_key_prefix {}

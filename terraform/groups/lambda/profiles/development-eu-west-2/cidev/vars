@@ -3,10 +3,7 @@
 # ------------------------------------------------------------------------------
 
 environment = "cidev"
-aws_bucket = "development-eu-west-2.terraform-state.ch.gov.uk"
 aws_profile = "development-eu-west-2"
-workspace_key_prefix = "payment-reconciler"
-state_file_name = "payment-reconciler.tfstate"
 cron_schedule = "cron(0 23 * * ? *)"
 aws_region = "eu-west-2"
 release_bucket_name = "development-eu-west-2.release.ch.gov.uk"

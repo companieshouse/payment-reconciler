@@ -31,9 +31,6 @@ variable "environment" {
 variable "release_version" {
 }
 
-variable "aws_bucket" {
-}
-
 variable "service" {
   default = "payment-reconciler"
 }
@@ -47,11 +44,6 @@ variable "subnet_ids" {
 }
 
 variable "cron_schedule" {
-}
-
-variable "workspace_key_prefix" {
-}
-variable "state_file_name" {
 }
 
 # Vault
