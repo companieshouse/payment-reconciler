@@ -35,13 +35,13 @@ variable "service" {
   default = "payment-reconciler"
 }
 
-variable "vpc_id" {
-  type = string
-}
+# variable "vpc_id" {
+#   type = string
+# }
 
-variable "subnet_ids" {
-  type = list(string)
-}
+# variable "subnet_ids" {
+#   type = list(string)
+# }
 
 variable "cron_schedule" {
 }
