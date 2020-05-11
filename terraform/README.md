@@ -1,31 +1,35 @@
 # Payment Reconciler - terraform 
 
 ## Introduction
-This provisions the payment-reconciler Lambda function which is triggered by the cloud watch event.
+* This provisions the `payment-reconciler` Lambda function, together with a cloud watch event to trigger it.
+* Use [the Concourse pipeline](https://ci.platform.aws.chdev.org/teams/development/pipelines/payment-reconciler) to
+provision it in an automated manner. That pipeline uses the terraform configurations found in this directory.  
 
-## Config
-The following config is required to deploy the project:
-- release_bucket_name: `Optional` Release bucket for payment-reconciler, defaults to `release.ch.gov.uk`
-- version: `Required` Github release version
-- stage: `Required` deployment stage
-- environment: `Required` to read the environment variable from.
+## Configuration
 
-## Cheat Sheet
-tested on terraform version `0.11.7`, intended use with concourse. There should be no need for a manual deployment, instead add a specific environment to the concourse pipeline.
+The following configuration properties are required to deploy the reconciler:
 
-```sh
-terraform get
+- environment: `Required` The environment to be deployed to 
+- aws_profile: `Required` The AWS profile
+- cron_schedule: `Required` A cron schedule for the triggering of the lambda
+- aws_region: `Required` The AWS region
+- release_bucket_name `Required` The name of the release bucket containing the distribution 
 
-source ./environments/development/dev/terraform.cfg
+In addition to these, for a manual terraform deployment, the following arguments must be 
+provided on the command line as in the example below:
 
-#initialize terraform
-terraform init 
-
-# Plan provisioning
-TF_VAR_version=<release number> terraform plan -var-file=environments/development/<environment>/vars
-
-# Apply
-TF_VAR_version=<release number> terraform apply -var-file=environments/development/<environment>/vars
+```
+terraform-runner -g lambda -c plan -p development-eu-west-2 -e cidev
 ```
 
-So far we only have development environments configuration. 
+The following inputs will be required for terraform too:
+
+- var.release_version: `Required` The Github release version to be deployed
+- var.vault_password: `Required` The password required for access to the terraform vault for other configuration parameters
+- var.vault_username: `Required` The user required for access to the terraform vault
+- provider.vault.address: `Required` The address of the terraform vault
+
+## Further background
+
+* Further background regarding the deployment of this Lambda function can be found 
+[here](https://companieshouse.atlassian.net/wiki/spaces/CHS/pages/1650000125/GCI-1042+Deployment+of+payment-reconciler).
