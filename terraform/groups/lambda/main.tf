@@ -19,8 +19,8 @@ provider "vault" {
 data "terraform_remote_state" "test_and_develop_vpc_eu_west_2" {
   backend = "s3"
   config = {
-    bucket = "ch-development-terraform-state-london"
-    key    = "env:/development/development/development.tfstate"
+    bucket = var.remote_state_bucket
+    key    = var.remote_state_key
     region = var.aws_region
   }
 }

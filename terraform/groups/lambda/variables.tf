@@ -17,6 +17,12 @@ variable "release_bucket_name" {
   default = "release.ch.gov.uk"
 }
 
+variable "remote_state_bucket" {
+}
+
+variable "remote_state_key" {
+}
+
 variable "runtime" {
   default = "go1.x"
 }
