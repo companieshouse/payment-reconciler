@@ -16,7 +16,7 @@ provider "vault" {
   }
 }
 
-data "terraform_remote_state" "test_and_develop_vpc_eu_west_2" {
+data "terraform_remote_state" "network_remote_state" {
   backend = "s3"
   config = {
     bucket = var.remote_state_bucket
@@ -26,8 +26,8 @@ data "terraform_remote_state" "test_and_develop_vpc_eu_west_2" {
 }
 
 locals {
-  test_and_development_vpc_id     = data.terraform_remote_state.test_and_develop_vpc_eu_west_2.outputs.vpc_id
-  test_and_development_subnet_ids = split(",", data.terraform_remote_state.test_and_develop_vpc_eu_west_2.outputs.application_ids)
+  test_and_development_vpc_id     = data.terraform_remote_state.network_remote_state.outputs.vpc_id
+  test_and_development_subnet_ids = split(",", data.terraform_remote_state.network_remote_state.outputs.application_ids)
 }
 
 module "lambda" {
