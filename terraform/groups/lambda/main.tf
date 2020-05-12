@@ -16,8 +16,18 @@ provider "vault" {
   }
 }
 
-data "vault_generic_secret" "aws_network" {
-  path = "applications/${var.aws_profile}/${var.environment}/${var.service}/aws_network"
+data "terraform_remote_state" "test_and_develop_vpc_eu_west_2" {
+  backend = "s3"
+  config = {
+    bucket = "ch-development-terraform-state-london"
+    key    = "env:/development/development/development.tfstate"
+    region = var.aws_region
+  }
+}
+
+locals {
+  test_and_development_vpc_id     = data.terraform_remote_state.test_and_develop_vpc_eu_west_2.outputs.vpc_id
+  test_and_development_subnet_ids = split(",", data.terraform_remote_state.test_and_develop_vpc_eu_west_2.outputs.application_ids)
 }
 
 module "lambda" {
@@ -31,7 +41,7 @@ module "lambda" {
   release_bucket_name  = var.release_bucket_name
   execution_role       = module.lambda-roles.execution_role
   aws_profile          = var.aws_profile
-  subnet_ids           = [data.vault_generic_secret.aws_network.data["subnet_ids"]]
+  subnet_ids           = local.test_and_development_subnet_ids
   security_group_ids   = [module.security-group.lambda_into_vpc_id]
   environment          = var.environment
 }
@@ -44,7 +54,7 @@ module "lambda-roles" {
 
 module "security-group" {
   source      = "./module-security-group"
-  vpc_id      = data.vault_generic_secret.aws_network.data["vpc_id"]
+  vpc_id      = local.test_and_development_vpc_id
   environment = var.environment
   service     = var.service
 }
