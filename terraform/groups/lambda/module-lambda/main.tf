@@ -2,11 +2,6 @@ data "vault_generic_secret" "lambda_environment_variables" {
   path = "applications/${var.aws_profile}/${var.environment}/${var.service}/lambda_environment_variables"
 }
 
-locals {
-  sftp_port = 22
-  loglevel = "trace"
-}
-
 # ------------------------------------------------------------------------------
 # Lambdas
 # ------------------------------------------------------------------------------
@@ -28,8 +23,8 @@ resource "aws_lambda_function" "payment_reconciler" {
     variables = merge (
       data.vault_generic_secret.lambda_environment_variables.data,
       {
-        "SFTP_PORT"=local.sftp_port,
-        "LOGLEVEL"=local.loglevel
+        "SFTP_PORT"=22,
+        "LOGLEVEL"="trace"
       }
     )
   }
