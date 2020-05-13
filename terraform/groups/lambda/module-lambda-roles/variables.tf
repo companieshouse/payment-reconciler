@@ -1,3 +1,7 @@
-variable service {}
+variable service {
+  type        = string
+}
 
-variable environment {}
+variable environment {
+  type        = string
+}
