@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_event_rule" "payment_reconciler" {
   name        = "${var.service}-${var.environment}"
   description = "Call payment Reconciler lambda"
-  schedule_expression =var.cron_schedule
+  schedule_expression = var.cron_schedule
 }
 
 resource "aws_cloudwatch_event_target" "call_payment_reconciler_lambda" {
