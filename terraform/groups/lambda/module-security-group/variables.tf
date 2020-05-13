@@ -1,3 +1,9 @@
-variable "vpc_id" {}
-variable "environment" {}
-variable "service" {}
+variable "vpc_id" {
+  type        = string
+}
+variable "environment" {
+  type        = string
+}
+variable "service" {
+  type        = string
+}
