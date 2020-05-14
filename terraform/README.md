@@ -15,6 +15,13 @@ The following configuration properties are required to deploy the reconciler:
 - aws_region: `Required` The AWS region
 - release_bucket_name `Required` The name of the release bucket containing the distribution 
 
+Depending on the target deployment environment, it may be necessary to override the default values for these properties 
+too:
+
+- remote_state_bucket: `Optional` The S3 bucket where the terraform state for the reconciler is stored
+- remote_state_key: `Optional` The location in the S3 bucket where terraform state shared by all deployed artefacts is 
+stored
+
 In addition to these, for a manual terraform deployment, use 
 [platform-tools](https://github.com/companieshouse/platform-tools). The following arguments must be 
 provided on the command line as in the example below:
