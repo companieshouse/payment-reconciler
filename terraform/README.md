@@ -15,7 +15,8 @@ The following configuration properties are required to deploy the reconciler:
 - aws_region: `Required` The AWS region
 - release_bucket_name `Required` The name of the release bucket containing the distribution 
 
-In addition to these, for a manual terraform deployment, the following arguments must be 
+In addition to these, for a manual terraform deployment, use 
+[platform-tools](https://github.com/companieshouse/platform-tools). The following arguments must be 
 provided on the command line as in the example below:
 
 ```
