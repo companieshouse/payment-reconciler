@@ -22,7 +22,9 @@ too:
 - remote_state_key: `Optional` The location in the S3 bucket where terraform state shared by all deployed artefacts is 
 stored
 
-In addition to these, for a manual terraform deployment, use 
+## Manual deployment
+
+In addition to the above properties, for a manual terraform deployment, use 
 [platform-tools](https://github.com/companieshouse/platform-tools). The following arguments must be 
 provided on the command line as in the example below:
 
@@ -36,6 +38,17 @@ The following inputs will be required for terraform too:
 - var.vault_password: `Required` The password required for access to the terraform vault for other configuration parameters
 - var.vault_username: `Required` The user required for access to the terraform vault
 - provider.vault.address: `Required` The address of the terraform vault
+
+### Environment variables to reduce repetition
+
+To avoid having to enter the same values over and over again when testing the provisioning of the reconciler, use the 
+following environment variables: 
+
+| Variable name | Equivalent to | Example |
+| ------------- | ---------------- | ------- |
+| TF_VAR_vault_password | var.vault_password | export TF_VAR_vault_password=XXXXXXXXX |
+| TF_VAR_vault_username | var.vault_username | export TF_VAR_vault_username=payment_reconciler_read |
+| VAULT_ADDR    | provider.vault.address | export VAULT_ADDR=https://vault.platform.aws.chdev.org |
 
 ## Further background
 
