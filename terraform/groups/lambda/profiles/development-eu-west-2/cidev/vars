@@ -1,0 +1,11 @@
+# ------------------------------------------------------------------------------
+# Environment
+# ------------------------------------------------------------------------------
+
+environment = "cidev"
+aws_profile = "development-eu-west-2"
+cron_schedule = "cron(0 23 * * ? *)"
+aws_region = "eu-west-2"
+release_bucket_name = "development-eu-west-2.release.ch.gov.uk"
+remote_state_bucket = "ch-development-terraform-state-london"
+remote_state_key = "env:/development/development/development.tfstate"

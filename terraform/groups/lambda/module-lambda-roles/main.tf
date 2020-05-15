@@ -79,7 +79,7 @@ data "aws_iam_policy_document" "payment_reconciler_execution" {
 # ------------------------------------------------------------------------------
 resource "aws_iam_role" "payment_reconciler_execution" {
   name               = "${var.service}-execution-${var.environment}"
-  assume_role_policy = "${data.aws_iam_policy_document.payment_reconciler_trust.json}"
+  assume_role_policy = data.aws_iam_policy_document.payment_reconciler_trust.json
 }
 
 # ------------------------------------------------------------------------------
@@ -87,10 +87,10 @@ resource "aws_iam_role" "payment_reconciler_execution" {
 # ------------------------------------------------------------------------------
 resource "aws_iam_role_policy" "payment_reconciler_execution" {
   name   = "payment_reconciler_execution"
-  role   = "${aws_iam_role.payment_reconciler_execution.id}"
-  policy = "${data.aws_iam_policy_document.payment_reconciler_execution.json}"
+  role   = aws_iam_role.payment_reconciler_execution.id
+  policy = data.aws_iam_policy_document.payment_reconciler_execution.json
 }
 
 output "execution_role" {
-  value = "${aws_iam_role.payment_reconciler_execution.arn}"
+  value = aws_iam_role.payment_reconciler_execution.arn
 }

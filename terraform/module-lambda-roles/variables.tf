@@ -1,3 +1,0 @@
-variable service {}
-
-variable environment {}
