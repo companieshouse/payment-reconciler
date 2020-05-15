@@ -2,8 +2,8 @@
 
 ## Introduction
 * This provisions the `payment-reconciler` Lambda function, together with a cloud watch event to trigger it.
-* Use [the Concourse pipeline](https://ci.platform.aws.chdev.org/teams/development/pipelines/payment-reconciler) to
-provision it in an automated manner. That pipeline uses the terraform configurations found in this directory.  
+* Use the Concourse pipeline to provision it in an automated manner. That pipeline uses the terraform configurations 
+found in this directory.  
 
 ## Configuration
 
