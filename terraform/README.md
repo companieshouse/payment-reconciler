@@ -7,20 +7,16 @@ provision it in an automated manner. That pipeline uses the terraform configurat
 
 ## Configuration
 
-The following configuration properties are required to deploy the reconciler:
+To deploy the reconciler, we must specify the following configuration properties:
 
 - environment: `Required` The environment to be deployed to 
 - aws_profile: `Required` The AWS profile
 - cron_schedule: `Required` A cron schedule for the triggering of the lambda
 - aws_region: `Required` The AWS region
 - release_bucket_name `Required` The name of the release bucket containing the distribution 
-
-Depending on the target deployment environment, it may be necessary to override the default values for these properties 
-too:
-
-- remote_state_bucket: `Optional` The S3 bucket where the terraform state for the reconciler is stored
-- remote_state_key: `Optional` The location in the S3 bucket where terraform state shared by all deployed artefacts is 
-stored
+- remote_state_bucket: `Required` The S3 bucket where the terraform state for the network is stored
+- remote_state_key: `Required` The location in the S3 bucket where the terraform state of the network components is read
+ from
 
 ## Manual deployment
 
