@@ -42,9 +42,9 @@ following environment variables:
 
 | Variable name | Equivalent to | Example |
 | ------------- | ---------------- | ------- |
-| TF_VAR_vault_password | var.vault_password | export TF_VAR_vault_password=XXXXXXXXX |
-| TF_VAR_vault_username | var.vault_username | export TF_VAR_vault_username=payment_reconciler_read |
-| VAULT_ADDR    | provider.vault.address | export VAULT_ADDR=https://vault.XXXXX.XXX |
+| TF_VAR_vault_password | var.vault_password | export TF_VAR_vault_password=&lt;PASSWORD&gt; |
+| TF_VAR_vault_username | var.vault_username | export TF_VAR_vault_username=&lt;USER NAME&gt; |
+| VAULT_ADDR    | provider.vault.address | export VAULT_ADDR=&lt;URL&gt; |
 
 ## Further background
 
