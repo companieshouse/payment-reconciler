@@ -9,6 +9,11 @@ resource "aws_security_group" "payment_reconciler" {
     protocol        = "-1"
     cidr_blocks     = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.environment}-${var.service}-sg"
+  }
+
 }
 
 output "lambda_into_vpc_id" {
