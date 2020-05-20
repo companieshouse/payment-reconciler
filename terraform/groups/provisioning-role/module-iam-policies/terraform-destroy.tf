@@ -21,15 +21,15 @@ data "aws_iam_policy_document" "destroy" {
     sid       = "DestroyPolicyAllResources"
     effect    = "Allow"
     resources = ["*"]
-    actions = [
+    actions   = [
       "ec2:DescribeNetworkInterfaces",
       "ec2:DeleteNetworkInterface",
     ]
   }
 
   statement {
-    sid    = "DestroyPolicyListedResources"
-    effect = "Allow"
+    sid       = "DestroyPolicyListedResources"
+    effect    = "Allow"
     resources = [
       "arn:aws:events:eu-west-2:${var.aws_account_id}:rule/payment-reconciler-*",
       "arn:aws:iam::${var.aws_account_id}:role/payment-reconciler-execution-*",

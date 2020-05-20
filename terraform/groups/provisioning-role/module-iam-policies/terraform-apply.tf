@@ -3,7 +3,7 @@ data "aws_iam_policy_document" "apply" {
     sid       = "ApplyPolicyAllResources"
     effect    = "Allow"
     resources = ["*"]
-    actions = [
+    actions   = [
       "ec2:CreateSecurityGroup",
       "ec2:CreateTags",
       "lambda:CreateFunction",
@@ -11,8 +11,8 @@ data "aws_iam_policy_document" "apply" {
   }
 
   statement {
-    sid    = "ApplyPolicyListedResources"
-    effect = "Allow"
+    sid       = "ApplyPolicyListedResources"
+    effect    = "Allow"
     resources = [
       "arn:aws:iam::${var.aws_account_id}:role/payment-reconciler-execution-*",
       "arn:aws:events:eu-west-2:${var.aws_account_id}:rule/payment-reconciler-*",

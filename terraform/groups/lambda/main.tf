@@ -35,7 +35,7 @@ data "vault_generic_secret" "aws_account_id" {
 locals {
   test_and_development_vpc_id     = data.terraform_remote_state.network_remote_state.outputs.vpc_id
   test_and_development_subnet_ids = split(",", data.terraform_remote_state.network_remote_state.outputs.application_ids)
-  aws_account_id = data.vault_generic_secret.aws_account_id.data["value"]
+  aws_account_id                  = data.vault_generic_secret.aws_account_id.data["value"]
 }
 
 module "lambda" {
