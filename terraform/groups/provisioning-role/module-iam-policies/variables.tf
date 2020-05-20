@@ -6,7 +6,7 @@ variable "aws_account_id" {
 
 # IAM
 variable "iam_role_policies" {
-  type        = map
+  type        = map(string)
   description = "A map of IAM policies and the role to attach them to."
 }
 variable "policy_description" {
