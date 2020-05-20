@@ -17,3 +17,7 @@ variable "iam_role_aws_policies" {
   type        = map
   description = "A map of AWS Managed policies and the role to attach them to."
 }
+variable "iam_policy_region" {
+  type        = string
+  description = "The AWS region to configure in IAM policies."
+}

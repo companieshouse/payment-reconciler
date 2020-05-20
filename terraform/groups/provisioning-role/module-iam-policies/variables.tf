@@ -14,3 +14,7 @@ variable "policy_description" {
   description = "A description of TF source to add to each policy created."
   default     = "Provisioned with payment-reconciler/groups/provisioning-role"
 }
+variable "iam_policy_region" {
+  type        = string
+  description = "The AWS region to configure in IAM policies."
+}

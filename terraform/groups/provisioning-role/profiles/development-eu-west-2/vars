@@ -9,6 +9,7 @@ iam_role_policies = {
   payment-reconciler-terraform-apply = "payment-reconciler-provisioning-role"
   payment-reconciler-terraform-destroy = "payment-reconciler-provisioning-role"
 }
+iam_policy_region = "eu-west-2"
 
 # AWS managed policies
 iam_role_aws_policies = {

@@ -15,9 +15,9 @@ data "aws_iam_policy_document" "apply" {
     effect    = "Allow"
     resources = [
       "arn:aws:iam::${var.aws_account_id}:role/payment-reconciler-execution-*",
-      "arn:aws:events:eu-west-2:${var.aws_account_id}:rule/payment-reconciler-*",
-      "arn:aws:ec2:eu-west-2:${var.aws_account_id}:security-group/*",
-      "arn:aws:lambda:eu-west-2:${var.aws_account_id}:function:payment-reconciler-devops1",
+      "arn:aws:events:${var.iam_policy_region}:${var.aws_account_id}:rule/payment-reconciler-*",
+      "arn:aws:ec2:${var.iam_policy_region}:${var.aws_account_id}:security-group/*",
+      "arn:aws:lambda:${var.iam_policy_region}:${var.aws_account_id}:function:payment-reconciler-devops1",
     ]
     actions = [
       "events:PutTargets",

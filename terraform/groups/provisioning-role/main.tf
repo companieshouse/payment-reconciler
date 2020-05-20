@@ -14,6 +14,7 @@ module "iam-policies" {
    source                = "./module-iam-policies"
    aws_account_id        = data.aws_caller_identity.current.account_id
    iam_role_policies     = var.iam_role_policies
+   iam_policy_region     = var.iam_policy_region
  }
 
  module "iam-roles" {

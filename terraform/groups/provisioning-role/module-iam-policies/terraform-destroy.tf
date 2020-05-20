@@ -3,7 +3,7 @@ data "aws_iam_policy_document" "destroy" {
     sid       = "DestroyPolicyListedResourcesWithConditions"
     effect    = "Allow"
     resources = [
-      "arn:aws:ec2:eu-west-2:${var.aws_account_id}:security-group/*"
+      "arn:aws:ec2:${var.iam_policy_region}:${var.aws_account_id}:security-group/*"
     ]
     actions   = [
       "ec2:DeleteSecurityGroup"
@@ -31,9 +31,9 @@ data "aws_iam_policy_document" "destroy" {
     sid       = "DestroyPolicyListedResources"
     effect    = "Allow"
     resources = [
-      "arn:aws:events:eu-west-2:${var.aws_account_id}:rule/payment-reconciler-*",
+      "arn:aws:events:${var.iam_policy_region}:${var.aws_account_id}:rule/payment-reconciler-*",
       "arn:aws:iam::${var.aws_account_id}:role/payment-reconciler-execution-*",
-      "arn:aws:lambda:eu-west-2:${var.aws_account_id}:function:payment-reconciler-*",
+      "arn:aws:lambda:${var.iam_policy_region}:${var.aws_account_id}:function:payment-reconciler-*",
     ]
     actions = [
       "events:DeleteRule",

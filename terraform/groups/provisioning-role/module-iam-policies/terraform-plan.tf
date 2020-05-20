@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "plan" {
     sid       = "PlanPolicyListedResources"
     effect    = "Allow"
     resources = [
-      "arn:aws:events:eu-west-2:${var.aws_account_id}:rule/payment-reconciler-cidev",
+      "arn:aws:events:${var.iam_policy_region}:${var.aws_account_id}:rule/payment-reconciler-cidev",
       "arn:aws:iam::${var.aws_account_id}:role/payment-reconciler-execution-cidev",
     ]
     actions = [
