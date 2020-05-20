@@ -1,5 +1,8 @@
 provider "aws" {
   region = var.aws_region
+  assume_role {
+    role_arn = "arn:aws:iam::${local.aws_account_id}:role/payment-reconciler-provisioning-role"
+  }
 }
 
 terraform {
@@ -25,9 +28,14 @@ data "terraform_remote_state" "network_remote_state" {
   }
 }
 
+data "vault_generic_secret" "aws_account_id" {
+  path = "applications/${var.aws_profile}/aws_account_id"
+}
+
 locals {
   test_and_development_vpc_id     = data.terraform_remote_state.network_remote_state.outputs.vpc_id
   test_and_development_subnet_ids = split(",", data.terraform_remote_state.network_remote_state.outputs.application_ids)
+  aws_account_id = data.vault_generic_secret.aws_account_id.data["value"]
 }
 
 module "lambda" {
