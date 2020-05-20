@@ -1,0 +1,16 @@
+# IAM roles
+iam_roles = {
+  payment-reconciler-provisioning-role = "payment-reconciler-provisioning-role"
+}
+
+# IAM role policies
+iam_role_policies = {
+  payment-reconciler-terraform-plan = "payment-reconciler-provisioning-role"
+  payment-reconciler-terraform-apply = "payment-reconciler-provisioning-role"
+  payment-reconciler-terraform-destroy = "payment-reconciler-provisioning-role"
+}
+
+# AWS managed policies
+iam_role_aws_policies = {
+  AWSLambdaReadOnlyAccess = "payment-reconciler-provisioning-role"
+}
