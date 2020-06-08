@@ -19,6 +19,9 @@ variable service {
 variable release_version {
   type        = string
 }
+variable open_lambda_environment_variables {
+  type        = map(string)
+}
 variable execution_role {
   type        = string
   description = "IAM role from lambda-roles module used for executing the Lambda."
