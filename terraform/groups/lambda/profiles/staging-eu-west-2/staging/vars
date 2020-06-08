@@ -1,0 +1,11 @@
+# ------------------------------------------------------------------------------
+# Environment
+# ------------------------------------------------------------------------------
+
+environment = "staging"
+aws_profile = "staging-eu-west-2"
+cron_schedule = "cron(0/5 * * * ? *)"
+aws_region = "eu-west-2"
+release_bucket_name = "ch-service-staging-release.ch.gov.uk"
+remote_state_bucket = "ch-service-staging-terraform-state"
+remote_state_key = "env:/staging/staging/staging.tfstate"
