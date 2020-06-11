@@ -1,0 +1,11 @@
+# ------------------------------------------------------------------------------
+# Environment
+# ------------------------------------------------------------------------------
+
+environment = "live"
+aws_profile = "live-eu-west-2"
+cron_schedule = "cron(0 23 * * ? *)"
+aws_region = "eu-west-2"
+release_bucket_name = "ch-service-live-release.ch.gov.uk"
+remote_state_bucket = "ch-service-live-terraform-state"
+remote_state_key = "env:/live/live/live.tfstate"
