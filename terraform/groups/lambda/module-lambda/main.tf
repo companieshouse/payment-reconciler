@@ -22,10 +22,8 @@ resource "aws_lambda_function" "payment_reconciler" {
   environment {
     variables = merge (
       data.vault_generic_secret.lambda_environment_variables.data,
-      {
-        "SFTP_PORT"=22,
-        "LOGLEVEL"="trace"
-      }
+      var.open_lambda_environment_variables,
+      { "SFTP_PORT"=22 }
     )
   }
 }

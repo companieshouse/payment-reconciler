@@ -4,6 +4,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
+    encrypt = true
   }
 }
 
@@ -40,6 +41,7 @@ module "lambda" {
   release_version      = var.release_version
   release_bucket_name  = var.release_bucket_name
   execution_role       = module.lambda-roles.execution_role
+  open_lambda_environment_variables = var.open_lambda_environment_variables
   aws_profile          = var.aws_profile
   subnet_ids           = local.test_and_development_subnet_ids
   security_group_ids   = [module.security-group.lambda_into_vpc_id]

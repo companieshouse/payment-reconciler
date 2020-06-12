@@ -9,3 +9,4 @@ aws_region = "eu-west-2"
 release_bucket_name = "development-eu-west-2.release.ch.gov.uk"
 remote_state_bucket = "ch-development-terraform-state-london"
 remote_state_key = "env:/development/development/development.tfstate"
+open_lambda_environment_variables = {LOGLEVEL="trace"}

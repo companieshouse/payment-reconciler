@@ -59,6 +59,12 @@ variable "cron_schedule" {
   description = "CloudWatch cron schedule expression for calling the Lambda function."
 }
 
+variable open_lambda_environment_variables {
+  type        = map(string)
+  description = "Lambda environment variables that do not require encryption."
+  default     = {}
+}
+
 # Vault
 variable "vault_username" {
   type        = string
