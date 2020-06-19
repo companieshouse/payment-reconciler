@@ -6,8 +6,8 @@ import (
 
 // TestConfig holds configuration details required to test the lambda.
 type TestConfig struct {
-	EnvRegionAWS   string `env:"ENV_REGION_AWS"   flag:"env-region-aws"   flagDesc:"The AWS region code for the lambda"`
-	LambdaName     string `env:"LAMBDA_NAME"      flag:"lambda-name"      flagDesc:"The name of the lambda"`
+	EnvRegionAWS string `env:"ENV_REGION_AWS"   flag:"env-region-aws"   flagDesc:"The AWS region code for the lambda"`
+	LambdaName   string `env:"LAMBDA_NAME"      flag:"lambda-name"      flagDesc:"The name of the lambda"`
 	SFTPConfig
 }
 

@@ -253,8 +253,8 @@ func TestIntegrationExecute(t *testing.T) {
 
 				Convey("Then new csv's are uploaded to the SFTP server", func() {
 
-					transactionsFileName := filepath.Join(cfg.SFTPFilePath, service.TransactionsFileNamePrefix + yesterday + service.CsvFileSuffix)
-					productsFileName := filepath.Join(cfg.SFTPFilePath, service.ProductsFileNamePrefix + yesterday + service.CsvFileSuffix)
+					transactionsFileName := filepath.Join(cfg.SFTPFilePath, service.TransactionsFileNamePrefix+yesterday+service.CsvFileSuffix)
+					productsFileName := filepath.Join(cfg.SFTPFilePath, service.ProductsFileNamePrefix+yesterday+service.CsvFileSuffix)
 
 					// Fetch details of the transactions file
 					transactionsFile, transactionsFileErr := sftpSession.Stat(transactionsFileName)
