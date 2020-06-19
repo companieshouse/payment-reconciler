@@ -7,5 +7,7 @@ payment-reconciler*
 # Lint files
 lint.txt
 
+.DS_Store
 
-.DS_Store 
+# Test coverage file
+coverage.out

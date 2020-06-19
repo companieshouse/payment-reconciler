@@ -10,6 +10,11 @@ type Config struct {
 	ProductsCollection     string `env:"MONGODB_PAYMENT_REC_PRODUCTS_COLLECTION"      flag:"mongodb-payment-rec-products-collection"       flagDesc:"MongoDB collection for payment products data"`
 	Database               string `env:"MONGODB_PAYMENT_REC_DATABASE"                 flag:"mongodb-payment-rec-database"                  flagDesc:"MongoDB database for payment reconciliation data"`
 	MongoDBURL             string `env:"MONGODB_URL"                                  flag:"mongodb-url"                                   flagDesc:"MongoDB server URL"`
+	SFTPConfig
+}
+
+// SFTPConfig holds configuration details specific to an SFTP connection.
+type SFTPConfig struct {
 	SFTPServer             string `env:"SFTP_SERVER"                                  flag:"sftp-server"                                   flagDesc:"Name of the SFTP server"`
 	SFTPPort               string `env:"SFTP_PORT"                                    flag:"sftp-port"                                     flagDesc:"Port to connect to the SFTP server"`
 	SFTPUserName           string `env:"SFTP_USERNAME"                                flag:"sftp-username"                                 flagDesc:"Username of SFTP server"`

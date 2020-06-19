@@ -7,9 +7,14 @@ import (
 	"github.com/companieshouse/payment-reconciler/models"
 )
 
-const transactionsFileNamePrefix = "CHS_PaymentTransactions_"
-const productsFileNamePrefix = "CHS_PaymentProducts_"
-const csvFileSuffix = ".csv"
+// TransactionsFileNamePrefix is the prefix for the transactions file name
+const TransactionsFileNamePrefix = "CHS_PaymentTransactions_"
+
+// ProductsFileNamePrefix is the prefix for the transactions file name
+const ProductsFileNamePrefix = "CHS_PaymentProducts_"
+
+// CsvFileSuffix is the csv file extension suffix
+const CsvFileSuffix = ".csv"
 
 // Service provides functionality by which to fetch payment reconciliation CSV's
 type Service interface {
@@ -47,7 +52,7 @@ func (s *ServiceImpl) GetTransactionsCSV(reconciliationMetaData *models.Reconcil
 	log.Info("Successfully retrieved transactions data.")
 	log.Trace("Transactions data", log.Data{"transactions_data": transactions})
 
-	csv = constructCSV(transactions, transactionsFileNamePrefix, reconciliationMetaData)
+	csv = constructCSV(transactions, TransactionsFileNamePrefix, reconciliationMetaData)
 
 	return csv, nil
 }
@@ -67,7 +72,7 @@ func (s *ServiceImpl) GetProductsCSV(reconciliationMetaData *models.Reconciliati
 	log.Info("Successfully retrieved products data.")
 	log.Trace("Products data", log.Data{"products_data": products})
 
-	csv = constructCSV(products, productsFileNamePrefix, reconciliationMetaData)
+	csv = constructCSV(products, ProductsFileNamePrefix, reconciliationMetaData)
 
 	return csv, nil
 }
@@ -77,6 +82,6 @@ func constructCSV(data models.CSVable, fileNamePrefix string, reconciliationMeta
 
 	return models.CSV{
 		Data:     data,
-		FileName: fileNamePrefix + reconciliationMetaData.ReconciliationDate + csvFileSuffix,
+		FileName: fileNamePrefix + reconciliationMetaData.ReconciliationDate + CsvFileSuffix,
 	}
 }

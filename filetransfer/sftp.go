@@ -22,6 +22,15 @@ type SFTP struct {
 // New returns a new SFTP struct using the provided config
 func New(cfg *config.Config) *SFTP {
 
+	return &SFTP{
+		Config:          cfg,
+		SSHClientConfig: NewSSHConfig(&cfg.SFTPConfig),
+	}
+}
+
+// NewSSHConfig returns an SSH client config struct
+func NewSSHConfig(cfg *config.SFTPConfig) *ssh.ClientConfig {
+
 	sshCfg := &ssh.ClientConfig{
 		User: cfg.SFTPUserName,
 		HostKeyCallback: func(hostname string, remote net.Addr, key ssh.PublicKey) error {
@@ -34,10 +43,7 @@ func New(cfg *config.Config) *SFTP {
 
 	sshCfg.SetDefaults()
 
-	return &SFTP{
-		Config:          cfg,
-		SSHClientConfig: sshCfg,
-	}
+	return sshCfg
 }
 
 // UploadCSVFiles uploads an array of CSV's to an STFP server
