@@ -20,24 +20,24 @@ Name                                             | Description                  
 MONGODB_PAYMENT_REC_TRANSACTIONS_COLLECTION      | The name of the collection within the payment reconciliation database from which to fetch transactions data.  |                 
 MONGODB_PAYMENT_REC_PRODUCTS_COLLECTION          | The name of the collection within the payment reconciliation database from which to fetch products data.      |                              
 MONGODB_PAYMENT_REC_DATABASE                     | The name of the payment reconciliation database.                                                              | 
-MONGODB_URL                                      | The Mongo database URL.                                                                                       | 'mongodb://<mongo_host>:27017
+MONGODB_URL                                      | The Mongo database URL.                                                                                       | `mongodb://<mongo_host>:27017`
 SFTP_SERVER                                      | The SFTP server host name.                                                                                    | 
-SFTP_PORT                                        | The port over which to connect to the SFTP server.                                                            | '22'
+SFTP_PORT                                        | The port over which to connect to the SFTP server.                                                            | `22`
 SFTP_USERNAME                                    | The username of the SFTP server credentials.                                                                  | 
 SFTP_PASSWORD                                    | The password of the SFTP server credentials.                                                                  |
-SFTP_FILE_PATH                                   | The file path, relative to the root of the SFTP server, to which to upload CSV files.                         | 'uploadPath' (will result is CV's uploaded to directory: ~/uploadPath)
+SFTP_FILE_PATH                                   | The file path, relative to the root of the SFTP server, to which to upload CSV files.                         | `uploadPath` (will result is CV's uploaded to directory: ~/uploadPath)
 
 ### Test Environment Variables
 Environment variables required to execute integration tests for this lambda:
 
 Name                | Description                                                                           | Examples
 --------------------| --------------------------------------------------------------------------------------|--------------------------------------------------------------------------
-ENV_REGION_AWS      | The AWS region code for the lambda.                                                   | 'eu-west-2'         
-LAMBDA_NAME         | The name of the lambda.                                                               | 'payment-reconciler-cidev'                             
+ENV_REGION_AWS      | The AWS region code for the lambda.                                                   | `eu-west-2`         
+LAMBDA_NAME         | The name of the lambda.                                                               | `payment-reconciler-cidev`                             
 SFTP_SERVER         | The SFTP server host name.                                                            | 
-SFTP_PORT           | The port over which to connect to the SFTP server.                                    | '22'
+SFTP_PORT           | The port over which to connect to the SFTP server.                                    | `22`
 SFTP_USERNAME       | The username of the SFTP server credentials.                                          | 
 SFTP_PASSWORD       | The password of the SFTP server credentials.                                          |
-SFTP_FILE_PATH      | The file path, relative to the root of the SFTP server, to which to upload CSV files. | 'uploadPath' (will result is CSV's uploaded to directory: ~/uploadPath)
+SFTP_FILE_PATH      | The file path, relative to the root of the SFTP server, to which to upload CSV files. | `uploadPath` (will result is CSV's uploaded to directory: ~/uploadPath)
 
 _Note: if any test environment variables are not present, the integration tests will be skipped_
