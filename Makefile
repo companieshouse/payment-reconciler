@@ -24,11 +24,11 @@ test: test-unit
 
 .PHONY: test-unit
 test-unit:
-	go test $(TESTS) -run 'Unit' -coverprofile=coverage.out
+	go test $(TESTS) -run 'Unit'
 
 .PHONY: test-integration
 test-integration:
-	go test $(TESTS) -run 'Integration' -coverprofile=coverage.out
+	go test $(TESTS) -run 'Integration'
 
 .PHONY: clean
 clean:

@@ -8,6 +8,3 @@ payment-reconciler*
 lint.txt
 
 .DS_Store
-
-# Test coverage file
-coverage.out
