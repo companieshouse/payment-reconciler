@@ -94,3 +94,31 @@ func (m *Mongo) GetProductsData(reconciliationMetaData *models.ReconciliationMet
 
 	return productsData, err
 }
+
+// GetRefundsData fetches products data
+func (m *Mongo) GetRefundsData(reconciliationMetaData *models.ReconciliationMetaData) (models.RefundsList, error) {
+
+	var refunds []models.Refund
+
+	var refundsData models.RefundsList
+
+	mongoSession, err := getMongoSession(m.Config)
+	if err != nil {
+		return refundsData, fmt.Errorf("error connecting to MongoDB: %s", err)
+	}
+	defer mongoSession.Close()
+
+	err = mongoSession.DB(m.Config.Database).C(m.Config.ProductsCollection).Find(bson.M{"transaction_date": bson.M{
+		"$gt": reconciliationMetaData.StartTime,
+		"$lt": reconciliationMetaData.EndTime,
+	}}).All(&refunds)
+	if err != nil {
+		return refundsData, fmt.Errorf("error retrieving refunds data: %s", err)
+	}
+
+	refundsData = models.RefundsList{
+		Refunds: refunds,
+	}
+
+	return refundsData, err
+}
