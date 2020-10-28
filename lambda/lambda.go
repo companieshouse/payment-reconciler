@@ -71,6 +71,15 @@ func (lambda *Lambda) Execute(reconciliationMetaData *models.ReconciliationMetaD
 	log.Info("Products CSV constructed. Preparing to upload CSV's.")
 	log.Trace("Products CSV", log.Data{"products_csv": productsCSV})
 
+	refundsCSV, err := lambda.Service.GetRefundsCSV(reconciliationMetaData)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+
+	log.Info("Refunds CSV constructed. Preparing to upload CSV's.")
+	log.Trace("Refunds CSV", log.Data{"refunds_csv": refundsCSV})
+
 	err = lambda.FileTransfer.UploadCSVFiles([]models.CSV{transactionsCSV, productsCSV})
 	if err != nil {
 		log.Error(err)
