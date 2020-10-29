@@ -38,22 +38,22 @@ func TestUnitExecute(t *testing.T) {
 
 		Convey("Given a transactions CSV is constructed successfully", func() {
 
-			var transactionsCSV models.CSV
+			transactionsCSV := models.CSV{}
 			mockService.EXPECT().GetTransactionsCSV(&reconciliationMetaData).Return(transactionsCSV, nil).Times(1)
 
 			Convey("And a products CSV is constructed successfully", func() {
 
-				var productsCSV models.CSV
+				productsCSV := models.CSV{}
 				mockService.EXPECT().GetProductsCSV(&reconciliationMetaData).Return(productsCSV, nil).Times(1)
 
 				Convey("And a refunds CSV is constructed successfully", func() {
 
-					var refundsCSV models.CSV
+					refundsCSV := models.CSV{}
 					mockService.EXPECT().GetRefundsCSV(&reconciliationMetaData).Return(refundsCSV, nil).Times(1)
 
 					Convey("And the CSV's are uploaded successfully", func() {
 
-						csvs := []models.CSV{transactionsCSV, productsCSV}
+						csvs := []models.CSV{transactionsCSV, productsCSV, refundsCSV}
 						mockFileTransfer.EXPECT().UploadCSVFiles(csvs).Return(nil).Times(1)
 
 						Convey("Then the request is successful", func() {
@@ -76,7 +76,7 @@ func TestUnitExecute(t *testing.T) {
 
 		Convey("Given a failure when constructing a transactions CSV", func() {
 
-			var transactionsCSV models.CSV
+			transactionsCSV := models.CSV{}
 			mockService.EXPECT().GetTransactionsCSV(&reconciliationMetaData).Return(transactionsCSV, errors.New("failed to construct transactions CSV")).Times(1)
 
 			Convey("Then there is never an attempt to construct a products CSV", func() {
@@ -106,12 +106,12 @@ func TestUnitExecute(t *testing.T) {
 
 		Convey("Given a transactions CSV is constructed successfully", func() {
 
-			var transactionsCSV models.CSV
+			transactionsCSV := models.CSV{}
 			mockService.EXPECT().GetTransactionsCSV(&reconciliationMetaData).Return(transactionsCSV, nil).Times(1)
 
 			Convey("But there's a failure when constructing a products CSV", func() {
 
-				var productsCSV models.CSV
+				productsCSV := models.CSV{}
 				mockService.EXPECT().GetProductsCSV(&reconciliationMetaData).Return(productsCSV, errors.New("failed to construct products CSV")).Times(1)
 
 				Convey("Then no CSV's are uploaded", func() {
@@ -137,17 +137,17 @@ func TestUnitExecute(t *testing.T) {
 
 		Convey("Given a transactions CSV is constructed successfully", func() {
 
-			var transactionsCSV models.CSV
+			transactionsCSV := models.CSV{}
 			mockService.EXPECT().GetTransactionsCSV(&reconciliationMetaData).Return(transactionsCSV, nil).Times(1)
 
 			Convey("a products CSV is constructed successfully", func() {
 
-				var productsCSV models.CSV
+				productsCSV := models.CSV{}
 				mockService.EXPECT().GetProductsCSV(&reconciliationMetaData).Return(productsCSV, nil).Times(1)
 
 				Convey("But there's a failure when constructing a refunds CSV", func() {
 
-					var refundsCSV models.CSV
+					refundsCSV := models.CSV{}
 					mockService.EXPECT().GetRefundsCSV(&reconciliationMetaData).Return(refundsCSV, errors.New("failed to construct products CSV")).Times(1)
 
 					Convey("Then no CSV's are uploaded", func() {
@@ -174,22 +174,22 @@ func TestUnitExecute(t *testing.T) {
 
 		Convey("Given a transactions CSV is constructed successfully", func() {
 
-			var transactionsCSV models.CSV
+			transactionsCSV := models.CSV{}
 			mockService.EXPECT().GetTransactionsCSV(&reconciliationMetaData).Return(transactionsCSV, nil).Times(1)
 
 			Convey("And a products CSV is constructed successfully", func() {
 
-				var productsCSV models.CSV
+				productsCSV := models.CSV{}
 				mockService.EXPECT().GetProductsCSV(&reconciliationMetaData).Return(productsCSV, nil).Times(1)
 
 				Convey("And a refunds CSV is constructed successfully", func() {
 
-					var refundsCSV models.CSV
+					refundsCSV := models.CSV{}
 					mockService.EXPECT().GetRefundsCSV(&reconciliationMetaData).Return(refundsCSV, nil).Times(1)
 
 					Convey("But the CSV's are not uploaded successfully", func() {
 
-						csvs := []models.CSV{transactionsCSV, productsCSV}
+						csvs := []models.CSV{transactionsCSV, productsCSV, refundsCSV}
 						mockFileTransfer.EXPECT().UploadCSVFiles(csvs).Return(errors.New("failure to upload CSV's")).Times(1)
 
 						Convey("Then the request is unsuccessful", func() {
