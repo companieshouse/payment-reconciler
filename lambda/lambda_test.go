@@ -148,7 +148,7 @@ func TestUnitExecute(t *testing.T) {
 				Convey("But there's a failure when constructing a refunds CSV", func() {
 
 					refundsCSV := models.CSV{}
-					mockService.EXPECT().GetRefundsCSV(&reconciliationMetaData).Return(refundsCSV, errors.New("failed to construct products CSV")).Times(1)
+					mockService.EXPECT().GetRefundsCSV(&reconciliationMetaData).Return(refundsCSV, errors.New("failed to construct refunds CSV")).Times(1)
 
 					Convey("Then no CSV's are uploaded", func() {
 
