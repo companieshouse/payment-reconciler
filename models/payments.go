@@ -14,7 +14,7 @@ type ProductsList struct {
 // Product contains data of a payment product
 type Product struct {
 	PaymentRef    string `bson:"payment_reference"`
-	ProductCode   int `bson:"product_code"`
+	ProductCode   int    `bson:"product_code"`
 	CompanyNumber string `bson:"company_number"`
 	FilingDate    string `bson:"filing_date"`
 	MadeUpDate    string `bson:"made_up_date"`
@@ -27,18 +27,18 @@ type TransactionsList struct {
 
 // Transaction contains data of a payment transaction
 type Transaction struct {
-	TransactionID     string `bson:"transaction_id"`
+	TransactionID     string    `bson:"transaction_id"`
 	TransactionDate   time.Time `bson:"transaction_date"`
-	Email             string `bson:"email"`
-	PaymentMethod     string `bson:"payment_method"`
-	Amount            string `bson:"amount"`
-	CompanyNumber     string `bson:"company_number"`
-	TransactionType   string `bson:"transaction_type"`
-	OrderReference    string `bson:"order_reference"`
-	Status            string `bson:"status"`
-	UserID            string `bson:"user_id"`
-	OriginalReference string `bson:"original_reference"`
-	DisputeDetails    string `bson:"dispute_details"`
+	Email             string    `bson:"email"`
+	PaymentMethod     string    `bson:"payment_method"`
+	Amount            string    `bson:"amount"`
+	CompanyNumber     string    `bson:"company_number"`
+	TransactionType   string    `bson:"transaction_type"`
+	OrderReference    string    `bson:"order_reference"`
+	Status            string    `bson:"status"`
+	UserID            string    `bson:"user_id"`
+	OriginalReference string    `bson:"original_reference"`
+	DisputeDetails    string    `bson:"dispute_details"`
 }
 
 // ToCSV converts TransactionsList into CSV-writable data
