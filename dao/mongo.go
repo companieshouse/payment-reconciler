@@ -108,7 +108,7 @@ func (m *Mongo) GetRefundsData(reconciliationMetaData *models.ReconciliationMeta
 	}
 	defer mongoSession.Close()
 
-	err = mongoSession.DB(m.Config.Database).C(m.Config.ProductsCollection).Find(bson.M{"transaction_date": bson.M{
+	err = mongoSession.DB(m.Config.Database).C(m.Config.RefundsCollection).Find(bson.M{"transaction_date": bson.M{
 		"$gt": reconciliationMetaData.StartTime,
 		"$lt": reconciliationMetaData.EndTime,
 	}}).All(&refunds)
