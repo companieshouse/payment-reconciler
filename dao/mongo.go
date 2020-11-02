@@ -95,7 +95,7 @@ func (m *Mongo) GetProductsData(reconciliationMetaData *models.ReconciliationMet
 	return productsData, err
 }
 
-// GetRefundsData fetches products data
+// GetRefundsData fetches refunds data
 func (m *Mongo) GetRefundsData(reconciliationMetaData *models.ReconciliationMetaData) (models.RefundsList, error) {
 
 	var refunds []models.Refund

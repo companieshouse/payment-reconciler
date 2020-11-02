@@ -68,7 +68,7 @@ func (lambda *Lambda) Execute(reconciliationMetaData *models.ReconciliationMetaD
 		return err
 	}
 
-	log.Info("Products CSV constructed. Preparing to upload CSV's.")
+	log.Info("Products CSV constructed. Creating refunds CSV.")
 	log.Trace("Products CSV", log.Data{"products_csv": productsCSV})
 
 	refundsCSV, err := lambda.Service.GetRefundsCSV(reconciliationMetaData)
