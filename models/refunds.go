@@ -33,9 +33,9 @@ func (refunds RefundsList) ToCSV() [][]string {
 
 	for i := 0; i < len(refunds.Refunds); i++ {
 		if i == 0 {
-			csv[i] = getHeaders(refunds.Refunds)
+			csv[i] = getHeaders(refunds.Refunds[i])
 		}
-		csv[i+1] = getSlice(refunds.Refunds)
+		csv[i+1] = getSlice(refunds.Refunds[i])
 	}
 
 	return csv

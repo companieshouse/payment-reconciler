@@ -74,7 +74,7 @@ func (s *ServiceImpl) GetProductsCSV(reconciliationMetaData *models.Reconciliati
 	return csv, nil
 }
 
-// GetRefundsCSV retrieves products data and constructs a CSV
+// GetRefundsCSV retrieves refunds data and constructs a CSV
 func (s *ServiceImpl) GetRefundsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error) {
 
 	var csv models.CSV
