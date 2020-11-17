@@ -12,6 +12,7 @@ All dependent AWS resources are provisioned by Terraform and deployed from a con
 The pipeline is capable of deploying everything so manual deployment should not be necessary. For
 instructions on Terraform provisioning, see [here](/terraform/README.md).
 
+
 ### Environment Variables
 Environment variables required to execute the lambda:
 
