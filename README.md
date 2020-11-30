@@ -9,6 +9,7 @@ Terraform is then run to deploy the new version.
 
 ### Terraform deployment
 All dependent AWS resources are provisioned by Terraform and deployed from a concourse pipeline.
+Click then "plan" then "apply" jobs with desired environment to deploy the lambda.
 The pipeline is capable of deploying everything so manual deployment should not be necessary. For
 instructions on Terraform provisioning, see [here](/terraform/README.md).
 
