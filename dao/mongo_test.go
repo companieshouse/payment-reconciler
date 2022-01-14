@@ -3,12 +3,10 @@ package dao
 import (
 	"testing"
 
-	"github.com/companieshouse/payment-reconciler/models"
-
-	"go.mongodb.org/mongo-driver/mongo"
-
 	"github.com/companieshouse/payment-reconciler/config"
+	"github.com/companieshouse/payment-reconciler/models"
 	. "github.com/smartystreets/goconvey/convey"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var cfg *config.Config
