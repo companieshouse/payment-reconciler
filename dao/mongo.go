@@ -36,10 +36,6 @@ type MongoDatabaseInterface interface {
 	Collection(name string, opts ...*options.CollectionOptions) *mongo.Collection
 }
 
-func getDB(mongoDBURL, databaseName string) MongoDatabaseInterface {
-	return getMongoClient(mongoDBURL).Database(databaseName)
-}
-
 func getMongoClient(mongoDBURL string) *mongo.Client {
 	if client != nil {
 		return client
@@ -99,7 +95,7 @@ func (m *Mongo) GetTransactionsData(reconciliationMetaData *models.Reconciliatio
 		Transactions: transactions,
 	}
 
-	return transactionsData, err
+	return transactionsData, nil
 }
 
 // GetProductsData fetches products data
@@ -128,7 +124,7 @@ func (m *Mongo) GetProductsData(reconciliationMetaData *models.ReconciliationMet
 		Products: products,
 	}
 
-	return productsData, err
+	return productsData, nil
 }
 
 // GetRefundsData fetches refunds data
@@ -157,7 +153,7 @@ func (m *Mongo) GetRefundsData(reconciliationMetaData *models.ReconciliationMeta
 		Refunds: refunds,
 	}
 
-	return refundsData, err
+	return refundsData, nil
 }
 
 func closeCursor(cur *mongo.Cursor) {
