@@ -10,7 +10,7 @@ import (
 	"github.com/companieshouse/chs.go/log"
 	"github.com/companieshouse/payment-reconciler/config"
 	"github.com/companieshouse/payment-reconciler/models"
-	"github.com/globalsign/mgo/bson"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
