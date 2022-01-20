@@ -49,7 +49,7 @@ func getMongoClient(mongoDBURL string) *mongo.Client {
 	// Assume the caller of this func cannot handle the case where there is no database connection
 	// so the service must crash here as it cannot continue.
 	if err != nil {
-		log.Error(fmt.Errorf("error connecting to mongoDB %s,%s", mongoDBURL, err))
+		log.Error(fmt.Errorf("error connecting to mongoDB [%s] : %s", mongoDBURL, err))
 		os.Exit(1)
 	}
 
