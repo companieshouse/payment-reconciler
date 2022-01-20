@@ -75,7 +75,7 @@ func (m *Mongo) GetTransactionsData(reconciliationMetaData *models.Reconciliatio
 	var transactions []models.Transaction
 	var transactionsData models.TransactionsList
 
-	collection := getMongoClient(m.Config.Database).Database(m.Config.Database).Collection(m.Config.TransactionsCollection)
+	collection := getMongoClient(m.Config.MongoDBURL).Database(m.Config.Database).Collection(m.Config.TransactionsCollection)
 
 	cur, err := collection.Find(context.Background(), bson.M{"transaction_date": bson.M{
 		"$gt": reconciliationMetaData.StartTime,
@@ -104,7 +104,7 @@ func (m *Mongo) GetProductsData(reconciliationMetaData *models.ReconciliationMet
 	var products []models.Product
 	var productsData models.ProductsList
 
-	collection := getMongoClient(m.Config.Database).Database(m.Config.Database).Collection(m.Config.ProductsCollection)
+	collection := getMongoClient(m.Config.MongoDBURL).Database(m.Config.Database).Collection(m.Config.ProductsCollection)
 
 	cur, err := collection.Find(context.Background(), bson.M{"transaction_date": bson.M{
 		"$gt": reconciliationMetaData.StartTime,
@@ -133,7 +133,7 @@ func (m *Mongo) GetRefundsData(reconciliationMetaData *models.ReconciliationMeta
 	var refunds []models.Refund
 	var refundsData models.RefundsList
 
-	collection := getMongoClient(m.Config.Database).Database(m.Config.Database).Collection(m.Config.RefundsCollection)
+	collection := getMongoClient(m.Config.MongoDBURL).Database(m.Config.Database).Collection(m.Config.RefundsCollection)
 
 	cur, err := collection.Find(context.Background(), bson.M{"transaction_date": bson.M{
 		"$gt": reconciliationMetaData.StartTime,
