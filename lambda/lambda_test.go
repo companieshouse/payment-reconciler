@@ -51,23 +51,18 @@ func TestUnitExecute(t *testing.T) {
 					refundsCSV := models.CSV{}
 					mockService.EXPECT().GetRefundsCSV(&reconciliationMetaData).Return(refundsCSV, nil).Times(1)
 
-					Convey("And a auto refunds CSV is constructed successfully", func() {
+					Convey("And the CSV's are uploaded successfully", func() {
 
-						autoRefundsCSV := models.CSV{}
-						mockService.EXPECT().GetAutoRefundsCSV(&reconciliationMetaData).Return(autoRefundsCSV, nil).Times(1)
+						csvs := []models.CSV{transactionsCSV, productsCSV, refundsCSV}
+						mockFileTransfer.EXPECT().UploadCSVFiles(csvs).Return(nil).Times(1)
 
-						Convey("And the CSV's are uploaded successfully", func() {
+						Convey("Then the request is successful", func() {
 
-							csvs := []models.CSV{transactionsCSV, productsCSV, refundsCSV, autoRefundsCSV}
-							mockFileTransfer.EXPECT().UploadCSVFiles(csvs).Return(nil).Times(1)
-
-							Convey("Then the request is successful", func() {
-
-								err := lambda.Execute(&reconciliationMetaData)
-								So(err, ShouldBeNil)
-							})
+							err := lambda.Execute(&reconciliationMetaData)
+							So(err, ShouldBeNil)
 						})
 					})
+
 				})
 			})
 		})
@@ -172,7 +167,6 @@ func TestUnitExecute(t *testing.T) {
 		})
 	})
 
-
 	Convey("Subject: Failure to upload CSV's", t, func() {
 
 		mockService := service.NewMockService(mockCtrl)
@@ -195,23 +189,18 @@ func TestUnitExecute(t *testing.T) {
 					refundsCSV := models.CSV{}
 					mockService.EXPECT().GetRefundsCSV(&reconciliationMetaData).Return(refundsCSV, nil).Times(1)
 
-					Convey("And an auto refunds CSV is constructed successfully", func() {
+					Convey("But the CSV's are not uploaded successfully", func() {
 
-						autoRefundsCSV := models.CSV{}
-						mockService.EXPECT().GetAutoRefundsCSV(&reconciliationMetaData).Return(autoRefundsCSV, nil).Times(1)
+						csvs := []models.CSV{transactionsCSV, productsCSV, refundsCSV}
+						mockFileTransfer.EXPECT().UploadCSVFiles(csvs).Return(errors.New("failure to upload CSV's")).Times(1)
 
-						Convey("But the CSV's are not uploaded successfully", func() {
+						Convey("Then the request is unsuccessful", func() {
 
-							csvs := []models.CSV{transactionsCSV, productsCSV, refundsCSV, autoRefundsCSV}
-							mockFileTransfer.EXPECT().UploadCSVFiles(csvs).Return(errors.New("failure to upload CSV's")).Times(1)
-
-							Convey("Then the request is unsuccessful", func() {
-
-								err := lambda.Execute(&reconciliationMetaData)
-								So(err, ShouldNotBeNil)
-							})
+							err := lambda.Execute(&reconciliationMetaData)
+							So(err, ShouldNotBeNil)
 						})
 					})
+
 				})
 			})
 		})

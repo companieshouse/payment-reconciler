@@ -9,5 +9,4 @@ type DAO interface {
 	GetTransactionsData(reconciliationMetaData *models.ReconciliationMetaData) (models.TransactionsList, error)
 	GetProductsData(reconciliationMetaData *models.ReconciliationMetaData) (models.ProductsList, error)
 	GetRefundsData(reconciliationMetaData *models.ReconciliationMetaData) (models.RefundsList, error)
-	GetAutoRefundsData(reconciliationMetaData *models.ReconciliationMetaData) (models.RefundsList, error)
 }

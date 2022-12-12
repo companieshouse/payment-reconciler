@@ -14,7 +14,6 @@ import (
 const expectedTransactionsFileNamePrefix string = "CHS_PaymentTransactions_"
 const expectedProductsFileNamePrefix string = "CHS_PaymentProducts_"
 const expectedRefundsFileNamePrefix string = "CHS_Refunds_"
-const expectedAutoRefundsFileNamePrefix string = "CHS_Auto_Refunds_"
 const expectedCSVFileSuffix = ".csv"
 const reconciliationDate string = "2019-01-01"
 
@@ -198,67 +197,6 @@ func TestUnitGetRefundsCSV(t *testing.T) {
 			Convey("Then errors are returned", func() {
 
 				refundsCSV, err := svc.GetRefundsCSV(&reconciliationMetaData)
-				So(err, ShouldNotBeNil)
-
-				Convey("And no CSV is constructed", func() {
-
-					So(refundsCSV.Data, ShouldBeNil)
-				})
-			})
-		})
-	})
-}
-
-func TestUnitGetAutoRefundsCSV(t *testing.T) {
-
-	mockCtrl := gomock.NewController(t)
-	defer mockCtrl.Finish()
-
-	cfg := config.Config{}
-	reconciliationMetaData := models.ReconciliationMetaData{
-		ReconciliationDate: reconciliationDate,
-	}
-
-	Convey("Subject: Success", t, func() {
-
-		mockDao := dao.NewMockDAO(mockCtrl)
-
-		svc := createMockService(&cfg, mockDao)
-
-		Convey("Given refunds data is successfully fetched", func() {
-
-			var refunds models.RefundsList
-			mockDao.EXPECT().GetAutoRefundsData(&reconciliationMetaData).Return(refunds, nil).Times(1)
-
-			Convey("Then no errors are returned", func() {
-
-				refundsCSV, err := svc.GetAutoRefundsCSV(&reconciliationMetaData)
-				So(err, ShouldBeNil)
-
-				Convey("And a CSV is successfully constructed", func() {
-
-					So(refundsCSV, ShouldNotBeNil)
-					So(refundsCSV.Data, ShouldResemble, refunds)
-					So(refundsCSV.FileName, ShouldEqual, expectedAutoRefundsFileNamePrefix+reconciliationMetaData.ReconciliationDate+expectedCSVFileSuffix)
-				})
-			})
-		})
-	})
-
-	Convey("Subject: Failure to retrieve refunds data by refunded_at", t, func() {
-
-		mockDao := dao.NewMockDAO(mockCtrl)
-
-		svc := createMockService(&cfg, mockDao)
-
-		Convey("Given an error when fetching refunds data by refunded_at", func() {
-
-			var refunds models.RefundsList
-			mockDao.EXPECT().GetAutoRefundsData(&reconciliationMetaData).Return(refunds, errors.New("failure to fetch transactions data")).Times(1)
-
-			Convey("Then errors are returned", func() {
-
-				refundsCSV, err := svc.GetAutoRefundsCSV(&reconciliationMetaData)
 				So(err, ShouldNotBeNil)
 
 				Convey("And no CSV is constructed", func() {
