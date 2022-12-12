@@ -156,6 +156,35 @@ func (m *Mongo) GetRefundsData(reconciliationMetaData *models.ReconciliationMeta
 	return refundsData, nil
 }
 
+// GetAutoRefundsData fetches refunds data by refunded_at
+func (m *Mongo) GetAutoRefundsData(reconciliationMetaData *models.ReconciliationMetaData) (models.RefundsList, error) {
+
+	var refunds []models.Refund
+	var refundsData models.RefundsList
+
+	collection := getMongoClient(m.Config.MongoDBURL).Database(m.Config.Database).Collection(m.Config.RefundsCollection)
+
+	cur, err := collection.Find(context.Background(), bson.M{"refunded_at": bson.M{
+		"$gt": reconciliationMetaData.StartTime,
+		"$lt": reconciliationMetaData.EndTime,
+	}})
+	if err != nil {
+		return refundsData, fmt.Errorf("error retrieving refunds data by refunded_at: %s", err)
+	}
+
+	defer closeCursor(cur)
+
+	if err = cur.All(context.Background(), &refunds); err != nil {
+		return refundsData, fmt.Errorf("error retrieving refunds data by refunded_at: %s", err)
+	}
+
+	refundsData = models.RefundsList{
+		Refunds: refunds,
+	}
+
+	return refundsData, nil
+}
+
 func closeCursor(cur *mongo.Cursor) {
 	err := cur.Close(context.Background())
 	if err != nil {

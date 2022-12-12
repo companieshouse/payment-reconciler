@@ -9,6 +9,11 @@ type RefundsList struct {
 	Refunds []Refund
 }
 
+// AutoRefundsList holds an array of refund products
+type AutoRefundsList struct {
+	Refunds []AutoRefund
+}
+
 // Refund contains data of a refund
 type Refund struct {
 	TransactionID     string    `bson:"transaction_id"`
@@ -24,6 +29,17 @@ type Refund struct {
 	OriginalReference string    `bson:"original_reference"`
 	DisputeDetails    string    `bson:"dispute_details"`
 	ProductCode       int       `bson:"product_code"`
+}
+
+type AutoRefund struct {
+	TransactionID   string    `bson:"transaction_id"`
+	TransactionDate time.Time `bson:"transaction_date"`
+	TransactionType string    `bson:"transaction_type"`
+	PaymentMethod   string    `bson:"payment_method"`
+	Amount          string    `bson:"amount"`
+	Status          string    `bson:"status"`
+	CompanyNumber   string    `bson:"company_number"`
+	ProductCode     int       `bson:"product_code"`
 }
 
 // ToCSV converts RefundsList into CSV-writable data

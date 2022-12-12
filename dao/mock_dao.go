@@ -77,3 +77,18 @@ func (mr *MockDAOMockRecorder) GetRefundsData(reconciliationMetaData interface{}
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRefundsData", reflect.TypeOf((*MockDAO)(nil).GetRefundsData), reconciliationMetaData)
 }
+
+// GetAutoRefundsData mocks base method
+func (m *MockDAO) GetAutoRefundsData(reconciliationMetaData *models.ReconciliationMetaData) (models.RefundsList, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAutoRefundsData", reconciliationMetaData)
+	ret0, _ := ret[0].(models.RefundsList)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAutoRefundsData indicates an expected call of GetRefundsData
+func (mr *MockDAOMockRecorder) GetAutoRefundsData(reconciliationMetaData interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAutoRefundsData", reflect.TypeOf((*MockDAO)(nil).GetAutoRefundsData), reconciliationMetaData)
+}

@@ -59,3 +59,19 @@ func TestUnitGetRefundsData(t *testing.T) {
 		So(err.Error(), ShouldEqual, "error retrieving refunds data: the Find operation must have a Deployment set before Execute can be called")
 	})
 }
+
+func TestUnitGetAutoRefundsData(t *testing.T) {
+	Convey("Get Auto Refunds Data by Refunded_At", t, func() {
+		if cfg == nil {
+			cfg, _ = config.Get()
+		}
+		client = &mongo.Client{}
+
+		dao := New(cfg)
+		reconciliationMetaData := models.ReconciliationMetaData{}
+
+		refundsList, err := dao.GetAutoRefundsData(&reconciliationMetaData)
+		So(refundsList, ShouldBeZeroValue)
+		So(err.Error(), ShouldEqual, "error retrieving refunds data by refunded_at: the Find operation must have a Deployment set before Execute can be called")
+	})
+}

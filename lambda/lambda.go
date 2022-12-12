@@ -1,12 +1,13 @@
 package lambda
 
 import (
+	"time"
+
 	"github.com/companieshouse/chs.go/log"
 	"github.com/companieshouse/payment-reconciler/config"
 	"github.com/companieshouse/payment-reconciler/filetransfer"
 	"github.com/companieshouse/payment-reconciler/models"
 	"github.com/companieshouse/payment-reconciler/service"
-	"time"
 )
 
 const dateFormat = "2006-01-02"
@@ -30,7 +31,6 @@ func New(cfg *config.Config) *Lambda {
 
 // Execute handles lambda execution
 func (lambda *Lambda) Execute(reconciliationMetaData *models.ReconciliationMetaData) error {
-
 	if reconciliationMetaData.ReconciliationDate == "" {
 
 		reconciliationDateTime := time.Now()
@@ -80,7 +80,16 @@ func (lambda *Lambda) Execute(reconciliationMetaData *models.ReconciliationMetaD
 	log.Info("Refunds CSV constructed. Preparing to upload CSV's.")
 	log.Trace("Refunds CSV", log.Data{"refunds_csv": refundsCSV})
 
-	err = lambda.FileTransfer.UploadCSVFiles([]models.CSV{transactionsCSV, productsCSV, refundsCSV})
+	autoRefundsCSV, err := lambda.Service.GetAutoRefundsCSV(reconciliationMetaData)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+
+	log.Info("Auto Refunds CSV constructed. Preparing to upload CSV's.")
+	log.Trace("Auto Refunds CSV", log.Data{"refunds_csv by refunded_at": autoRefundsCSV})
+
+	err = lambda.FileTransfer.UploadCSVFiles([]models.CSV{transactionsCSV, productsCSV, refundsCSV, autoRefundsCSV})
 	if err != nil {
 		log.Error(err)
 		return err

@@ -10,6 +10,7 @@ import (
 const transactionsFileNamePrefix = "CHS_PaymentTransactions_"
 const productsFileNamePrefix = "CHS_PaymentProducts_"
 const refundsFileNamePrefix = "CHS_Refunds_"
+const autoRefundsFileNamePrefix = "CHS_Auto_Refunds_"
 const csvFileSuffix = ".csv"
 
 // Service provides functionality by which to fetch payment reconciliation CSV's
@@ -17,6 +18,7 @@ type Service interface {
 	GetTransactionsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error)
 	GetProductsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error)
 	GetRefundsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error)
+	GetAutoRefundsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error)
 }
 
 // ServiceImpl provides a concrete implementation of the Service interface
@@ -70,6 +72,26 @@ func (s *ServiceImpl) GetProductsCSV(reconciliationMetaData *models.Reconciliati
 	log.Trace("Products data", log.Data{"products_data": products})
 
 	csv = constructCSV(products, productsFileNamePrefix, reconciliationMetaData)
+
+	return csv, nil
+}
+
+// GetRefundsCSV retrieves refunds data and constructs a CSV
+func (s *ServiceImpl) GetAutoRefundsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error) {
+
+	var csv models.CSV
+
+	log.Info("Fetching refunds data.")
+
+	refunds, err := s.DAO.GetAutoRefundsData(reconciliationMetaData)
+	if err != nil {
+		return csv, err
+	}
+
+	log.Info("Successfully retrieved refunds data.")
+	log.Trace("Refunds data", log.Data{"refunds_data": refunds})
+
+	csv = constructCSV(refunds, autoRefundsFileNamePrefix, reconciliationMetaData)
 
 	return csv, nil
 }
