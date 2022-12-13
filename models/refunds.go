@@ -24,8 +24,8 @@ type Refund struct {
 	OriginalReference string    `bson:"original_reference"`
 	DisputeDetails    string    `bson:"dispute_details"`
 	ProductCode       int       `bson:"product_code"`
-	RefundID          string    `bson:"refund_id"`
-	RefundedAt        time.Time `bson:"refunded_at"`
+	RefundID          string    `bson:"refund_id,omitempty"`
+	RefundedAt        time.Time `bson:"refunded_at,omitempty"`
 }
 
 // ToCSV converts RefundsList into CSV-writable data
