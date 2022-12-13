@@ -77,3 +77,18 @@ func (mr *MockServiceMockRecorder) GetRefundsCSV(reconciliationMetaData interfac
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRefundsCSV", reflect.TypeOf((*MockService)(nil).GetRefundsCSV), reconciliationMetaData)
 }
+
+// GetAutoRefundsCSV indicates an expected call of GetRefundsCSV
+func (mr *MockServiceMockRecorder) GetAutoRefundsCSV(reconciliationMetaData interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAutoRefundsCSV", reflect.TypeOf((*MockService)(nil).GetAutoRefundsCSV), reconciliationMetaData)
+}
+
+// GetAutoRefundsCSV mocks base method
+func (m *MockService) GetAutoRefundsCSV(reconciliationMetaData *models.ReconciliationMetaData) (models.CSV, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAutoRefundsCSV", reconciliationMetaData)
+	ret0, _ := ret[0].(models.CSV)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
