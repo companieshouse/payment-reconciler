@@ -135,7 +135,7 @@ func (m *Mongo) GetRefundsData(reconciliationMetaData *models.ReconciliationMeta
 
 	collection := getMongoClient(m.Config.MongoDBURL).Database(m.Config.Database).Collection(m.Config.RefundsCollection)
 
-	cur, err := collection.Find(context.Background(), bson.M{"transaction_date": bson.M{
+	cur, err := collection.Find(context.Background(), bson.M{"refunded_at": bson.M{
 		"$gt": reconciliationMetaData.StartTime,
 		"$lt": reconciliationMetaData.EndTime,
 	}})
