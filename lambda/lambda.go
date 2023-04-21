@@ -33,7 +33,8 @@ func New(cfg *config.Config) *Lambda {
 func (lambda *Lambda) Execute(reconciliationMetaData *models.ReconciliationMetaData) error {
 	if reconciliationMetaData.ReconciliationDate == "" {
 
-		reconciliationDateTime := time.Now()
+		// If no date/time supplied, set start and end to beginning and end of previous day
+		reconciliationDateTime := time.Now().Add(time.Duration(-24) * time.Hour)
 		reconciliationMetaData.ReconciliationDate = reconciliationDateTime.Format(dateFormat)
 
 		startTime := reconciliationDateTime.Truncate(24 * time.Hour)

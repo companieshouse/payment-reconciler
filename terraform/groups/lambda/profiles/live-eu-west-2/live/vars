@@ -4,7 +4,7 @@
 
 environment = "live"
 aws_profile = "live-eu-west-2"
-cron_schedule = "cron(0 23 * * ? *)"
+cron_schedule = "cron(0 1 * * ? *)"
 aws_region = "eu-west-2"
 release_bucket_name = "ch-service-live-release.ch.gov.uk"
 remote_state_bucket = "ch-service-live-terraform-state"
