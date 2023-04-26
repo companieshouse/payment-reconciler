@@ -19,12 +19,17 @@ Environment variables required to execute the lambda:
 
 Name                                             | Description                                                                                                   | Examples
 ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------
-MONGODB_PAYMENT_REC_TRANSACTIONS_COLLECTION      | The name of the collection within the payment reconciliation database from which to fetch transactions data.  |                 
-MONGODB_PAYMENT_REC_PRODUCTS_COLLECTION          | The name of the collection within the payment reconciliation database from which to fetch products data.      |                              
-MONGODB_PAYMENT_REC_DATABASE                     | The name of the payment reconciliation database.                                                              | 
-MONGODB_URL                                      | The Mongo database URL.                                                                                       | 'mongodb://<mongo_host>:27017
-SFTP_SERVER                                      | The SFTP server host name.                                                                                    | 
-SFTP_PORT                                        | The port over which to connect to the SFTP server.                                                            | '22'
-SFTP_USERNAME                                    | The username of the SFTP server credentials.                                                                  | 
-SFTP_PASSWORD                                    | The password of the SFTP server credentials.                                                                  |
-SFTP_FILE_PATH                                   | The file path, relative to the root of the SFTP server, to which to upload CSV files.                         | 'uploadPath' (will result is CV's uploaded to directory: ~/uploadPath)
+`MONGODB_PAYMENT_REC_TRANSACTIONS_COLLECTION`    | The name of the collection within the payment reconciliation database from which to fetch transactions data.  |
+`MONGODB_PAYMENT_REC_PRODUCTS_COLLECTION`        | The name of the collection within the payment reconciliation database from which to fetch products data.      |
+`MONGODB_PAYMENT_REC_DATABASE`                   | The name of the payment reconciliation database.                                                              |
+`MONGODB_URL`                                    | The Mongo database URL.                                                                                       | `mongodb://<mongo_host>:27017`
+`SFTP_SERVER`                                    | The SFTP server host name.                                                                                    |
+`SFTP_PORT`                                      | The port over which to connect to the SFTP server.                                                            | `22`
+`SFTP_USERNAME`                                  | The username of the SFTP server credentials.                                                                  |
+`SFTP_PASSWORD`                                  | The password of the SFTP server credentials.                                                                  |
+`SFTP_FILE_PATH`                                 | The file path, relative to the root of the SFTP server, to which to upload CSV files.                         | `uploadPath` (will result is CV's uploaded to directory: `~/uploadPath`)
+
+### Testing
+This Lambda can be executed manually by submitting a Test Event in AWS.
+The date of the required file can be specified with the Event JSON, for example:
+`{"reconciliation_date" : "2022-10-14"}`
