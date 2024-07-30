@@ -10,7 +10,7 @@ require (
 	github.com/pkg/sftp v1.13.6
 	github.com/smartystreets/goconvey v0.0.0-20190731233626-505e41936337
 	go.mongodb.org/mongo-driver v1.12.1
-	golang.org/x/crypto v0.14.0
+	golang.org/x/crypto v0.17.0
 )
 
 require (
