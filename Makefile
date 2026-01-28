@@ -1,10 +1,7 @@
-TESTS ?= ./...
-
 bin      := payment-reconciler
-version  := "unversioned"
-
-.EXPORT_ALL_VARIABLES:
-GO111MODULE = on
+commit       := $(shell git rev-parse --short HEAD)
+tag          := $(shell git tag -l 'v*-rc*' --points-at HEAD)
+version := $(shell if [[ -n "$(tag)" ]]; then echo $(tag) | sed 's/^v//'; else echo $(commit); fi)
 
 lint_output  := lint.txt
 
@@ -15,20 +12,29 @@ all: build
 fmt:
 	go fmt ./...
 
+.PHONY: deps
+deps:
+	go get ./...
+
 .PHONY: build
-build: fmt
-	go build
+build: deps fmt $(bin)
+
+$(bin):
+	go build -o ./$(bin)
+
+.PHONY: test-deps
+test-deps: deps
+	go get -t ./...
 
 .PHONY: test
 test: test-unit
 
 .PHONY: test-unit
-test-unit:
-	go test $(TESTS) -run 'Unit' -coverprofile=coverage.out
+test-unit: test-deps
+	go test ./..
 
 .PHONY: clean
 clean:
-	go mod tidy
 	rm -f ./$(bin) ./$(bin)-*.zip $(test_path) build.log
 
 .PHONY: package
@@ -39,6 +45,7 @@ endif
 	$(info Packaging version: $(version))
 	$(eval tmpdir:=$(shell mktemp -d build-XXXXXXXXXX))
 	cp ./$(bin) $(tmpdir)
+	cp ./bootstrap $(tmpdir)
 	cp -r ./terraform  $(tmpdir)/terraform
 	cd $(tmpdir) && zip -r ../$(bin)-$(version).zip $(bin) terraform
 	rm -rf $(tmpdir)
@@ -47,7 +54,6 @@ endif
 dist: clean build package
 
 .PHONY: lint
-lint: GO111MODULE=off
 lint:
 	go get -u github.com/alecthomas/gometalinter
 	gometalinter --install
