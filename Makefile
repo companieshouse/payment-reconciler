@@ -24,7 +24,7 @@ test: test-unit
 
 .PHONY: test-unit
 test-unit:
-	go test $(TESTS) - run 'Unit' -coverprofile=coverage.out
+	go test $(TESTS) -run 'Unit' -coverprofile=coverage.out
 
 .PHONY: clean
 clean:
@@ -48,6 +48,7 @@ dist: clean build package
 
 .PHONY: lint
 lint: GO111MODULE=off
+lint:
 	go get -u github.com/alecthomas/gometalinter
 	gometalinter --install
 	gometalinter ./... > $(lint_output); true
