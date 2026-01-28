@@ -1,6 +1,7 @@
 variable "aws_region" {
   type        = string
   description = "AWS Region"
+  default     = "eu-west-2"
 }
 
 variable "aws_profile" {
@@ -10,8 +11,8 @@ variable "aws_profile" {
 
 variable "handler" {
   type        = string
-  default     = "payment-reconciler"
-  description = "The entrypoint in the Lambda funtion."
+  default     = "bootstrap"
+  description = "The entrypoint in the Lambda function."
 }
 
 variable "memory_megabytes" {
@@ -26,15 +27,9 @@ variable "release_bucket_name" {
   description = "The S3 release bucket location containing the function code. "
 }
 
-variable "release_version" {
+variable "release_artifact_key" {
   type        = string
-  description = "The version of the function code."
-}
-
-variable "runtime" {
-  type        = string
-  default     = "go1.x"
-  description = "The Lambda function language / runtime."
+  description = "The release artifact key for the Lambda function"
 }
 
 variable "timeout_seconds" {
@@ -63,6 +58,32 @@ variable open_lambda_environment_variables {
   type        = map(string)
   description = "Lambda environment variables that do not require encryption."
   default     = {}
+}
+
+variable "lambda_logs_retention_days" {
+  type        = number
+  description = "The number of days to retain Lambda logs in CloudWatch"
+  default     = 7
+}
+
+variable "lambda_runtime" {
+  type        = string
+  description = "The lambda runtime to run the application"
+  default     = "provided.al2023"
+}
+
+
+# Extra items still to be checked:
+
+variable "release_version" {
+  type        = string
+  description = "The version of the function code."
+}
+
+variable "runtime" {
+  type        = string
+  default     = "go1.x"
+  description = "The Lambda function language / runtime."
 }
 
 # Vault
